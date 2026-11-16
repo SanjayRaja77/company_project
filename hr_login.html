@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Admin Login - KCET</title>
+    <link rel="stylesheet" href="login.css?v=9">
+    <style>
+        /* HR Login — completely solid dark panel, NO image, NO overlay */
+        * { box-sizing: border-box; }
+        body.login-body {
+            background: #f1f5f9 !important;
+        }
+        .login-left {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 60%, #1a1a2e 100%) !important;
+            background-image: none !important;
+            background-attachment: unset !important;
+            isolation: isolate;
+        }
+        .login-left::before,
+        .login-left::after {
+            display: none !important;
+            content: none !important;
+        }
+        .login-bg-img { display: none !important; }
+        .login-left img { display: none !important; }
+        .login-left-overlay {
+            display: none !important;
+            background: none !important;
+        }
+        /* Accent color for HR panel */
+        .login-left-top h2 { color: #fff !important; }
+        .login-left-top h2 span { color: #f97316 !important; }
+        .login-left-top p { color: #cbd5e1 !important; }
+        .underline-accent { background: #f97316 !important; }
+        .cursive-text { color: #94a3b8 !important; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="login-body">
+    <div class="login-wrapper">
+
+        <!-- Top Header Bar -->
+        <div class="login-top-bar">
+            <div class="login-logo-text">KCET</div>
+            <div class="divider"></div>
+            <div class="login-top-tagline">HR Administration Portal</div>
+        </div>
+
+        <!-- Main: Left Image + Right Form -->
+        <div class="login-main">
+
+            <!-- Left: Solid HR Panel (no background image) -->
+            <div class="login-left" style="background: linear-gradient(145deg, #1e293b 0%, #0f172a 60%, #1a1a2e 100%);">
+                <div class="login-left-content">
+                    <div class="login-left-top">
+                        <h2>HR Admin<br><span>Portal Access</span></h2>
+                        <p>Manage employees, leave approvals, payroll and HR operations in one place.</p>
+                        <div class="underline-accent"></div>
+                    </div>
+                    <div class="login-left-bottom">
+                        <div class="cursive-text">Empowering HR,<br>Enabling Growth</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: HR Login Card -->
+            <div class="login-right">
+                <div class="login-card">
+
+                    <!-- Portal Icon -->
+                    <div class="portal-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="login-card-title">
+                        <h2>HR Portal Login</h2>
+                        <p>Secure access for HR administrators</p>
+                    </div>
+
+                    <!-- Form -->
+                    <form id="hrLoginForm" autocomplete="off" novalidate>
+                        <div class="input-group" id="hr-username-group">
+                            <label for="hr-username">HR Email</label>
+                            <div class="input-wrapper">
+                                <i class="fa-regular fa-id-badge input-icon"></i>
+                                <input type="text" id="hr-username" placeholder="Enter HR ID or Email" autocomplete="email">
+                            </div>
+                            <div class="error-message" id="hr-email-error">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <span>Please enter a valid KCET email address.</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group" id="hr-password-group">
+                            <label for="hr-password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <input type="password" id="hr-password" placeholder="Enter Password" autocomplete="current-password">
+                                <button type="button" class="toggle-password" id="hr-toggle-pwd">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="error-message" id="hr-password-error">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <span>Incorrect password. Please try again.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <label class="remember-me">
+                                <input type="checkbox" id="hr-remember">
+                                <span class="checkmark"></span>
+                                Keep me logged in
+                            </label>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
+                        </div>
+
+                        <div class="error-message" id="hr-general-error" style="margin-bottom:12px;">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span id="hr-general-error-text">Invalid credentials.</span>
+                        </div>
+
+                        <button type="submit" class="login-btn" id="hr-submit-btn">
+                            <span>Access Dashboard</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <!-- Back link -->
+                    <div style="text-align:center; margin-top:18px;">
+                        <a href="index.html" style="color:#64748b; font-size:0.85rem; text-decoration:none;">
+                            <i class="fa-solid fa-arrow-left" style="margin-right:5px;"></i>Back to Employee Login
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div><!-- /login-main -->
+
+        <!-- Footer Bar -->
+        <div class="login-footer-bar">
+            <div class="footer-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Secure Access</span>
+            </div>
+            <span class="footer-sep">|</span>
+            <div class="footer-item">
+                <span>&#169; KCET. All Rights Reserved.</span>
+            </div>
+        </div>
+
+    </div><!-- /login-wrapper -->
+
+    <script>
+        // If opened via file://, redirect to localhost server
+        if (window.location.protocol === 'file:') {
+            window.location.href = 'http://localhost:3000/hr_login.html';
+        }
+    </script>
+        var toggleBtn = document.getElementById('hr-toggle-pwd');
+        var pwdInput  = document.getElementById('hr-password');
+        if (toggleBtn && pwdInput) {
+            toggleBtn.addEventListener('click', function () {
+                var isHidden = pwdInput.type === 'password';
+                pwdInput.type = isHidden ? 'text' : 'password';
+                var icon = this.querySelector('i');
+                if (icon) icon.className = isHidden ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+            });
+        }
+
+        // Form submit → authenticate via API → go to HR dashboard
+        document.getElementById('hrLoginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var email = document.getElementById('hr-username').value.trim();
+            var pwd   = document.getElementById('hr-password').value;
+            var btn   = document.getElementById('hr-submit-btn');
+            var genErr = document.getElementById('hr-general-error');
+            var genErrTxt = document.getElementById('hr-general-error-text');
+
+            document.getElementById('hr-email-error').style.display = 'none';
+            document.getElementById('hr-password-error').style.display = 'none';
+            genErr.style.display = 'none';
+
+            if (!email) { document.getElementById('hr-email-error').style.display = 'flex'; return; }
+            if (!pwd)   { document.getElementById('hr-password-error').style.display = 'flex'; return; }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+
+            try {
+                var res = await fetch('http://localhost:3000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, password: pwd })
+                });
+                var data = await res.json();
+
+                if (!res.ok) {
+                    genErrTxt.textContent = data.error || 'Login failed';
+                    genErr.style.display = 'flex';
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>Access Dashboard</span><i class="fa-solid fa-arrow-right"></i>';
+                    return;
+                }
+
+                if (data.employee.role !== 'hr') {
+                    genErrTxt.textContent = 'Access denied. HR credentials required.';
+                    genErr.style.display = 'flex';
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>Access Dashboard</span><i class="fa-solid fa-arrow-right"></i>';
+                    return;
+                }
+
+                // Store token and redirect
+                sessionStorage.setItem('hr_token', data.token);
+                localStorage.setItem('hr_token', data.token);
+                window.location.href = 'hr_dashboard.html';
+
+            } catch (err) {
+                genErrTxt.textContent = 'Cannot connect to server. Make sure the backend is running.';
+                genErr.style.display = 'flex';
+                btn.disabled = false;
+                btn.innerHTML = '<span>Access Dashboard</span><i class="fa-solid fa-arrow-right"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="profile-sync.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit - KCET</title>
+    <link rel="stylesheet" href="style.css?v=7">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="logo-area">
+            <h1>KCET</h1>
+            <p></p>
+        </div>
+        <div class="search-area">
+            <div class="search-box">
+                <input type="text" placeholder="Search for Screens: Eg: Payslip">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="index.html">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="pay.html">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="leave.html">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+            <li class="dropdown">
+                <a href="attendance.html">Attendance & Time Tracking <i class="fa-solid fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Attendance Process Details</a>
+                    <a href="attendance.html">Attendance Calendar</a>
+                    <a href="#">Attendance Correction Dashboard</a>
+                </div>
+            </li>
+            <li><a href="helpdesk.html">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="exit.html" class="active">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="asep.html">ASeP <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="recognize.html">Recognize <i class="fa-solid fa-caret-down"></i></a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i> <span>Home</span> <i class="fa-solid fa-chevron-right"></i>
+        <span>Profile</span> <i class="fa-solid fa-chevron-right"></i> <span class="current">Exit Management</span>
+    </div>
+
+    <main class="container">
+        <!-- Left Sidebar -->
+        <aside class="profile-sidebar no-photo">
+            <div class="sidebar-header">
+                <span class="status-icon"><i class="fa-solid fa-user-check"></i></span>
+                <h3 id="sidebar-name">Vimalkumar S Profile</h3>
+            </div>
+
+            <div class="profile-details-center">
+                <p class="employee-code" id="sidebar-code">Employee Code: 7001089</p>
+                <p class="designation" id="sidebar-designation">Team Leader</p>
+
+                <div class="contact-info">
+                    <p id="sidebar-phone"><i class="fa-solid fa-phone"></i> 8012616806</p>
+                    <p id="sidebar-email"><i class="fa-solid fa-envelope"></i> Vimalkumar.S@kcet.com</p>
+                </div>
+
+                <div class="experience">
+                    <p>Current Experience in KCET</p>
+                    <div class="exp-years" id="sidebar-exp-years">07.08 years</div>
+                </div>
+
+                <div class="completeness">
+                    <p id="sidebar-completeness-text">Profile completeness: 89%</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="sidebar-progress-bar" style="width: 89%;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content (Right) -->
+        <section class="main-content">
+            <div class="content-panel">
+                <div class="panel-header">
+                    <div class="header-left">
+                        <i class="fa-solid fa-door-open"></i>
+                        <h2>EXIT MANAGEMENT</h2>
+                    </div>
+                </div>
+
+                <div id="exit-hero" style="text-align: center; padding: 40px;">
+                    <img src="exit_illustration.png" alt="Exit Illustration"
+                        style="max-width: 500px; width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h3 style="margin-top: 20px; font-size: 24px; color: #444; font-weight: 600;">Embrace Your Next
+                        Chapter</h3>
+                    <p
+                        style="margin-top: 15px; color: #666; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                        Thank you for your contribution to our journey. We wish you immense success in your future
+                        endeavors.
+                        Please initiate your exit process below or contact HR for assistance regarding clearance and
+                        settlement.
+                    </p>
+                    <div style="margin-top: 30px; display: flex; justify-content: center; gap: 15px;">
+                        <button id="initiate-exit-btn" class="action-btn"
+                            style="padding: 10px 25px; font-size: 14px; background-color: #f37021; color: white;">Initiate
+                            Resignation</button>
+                        <button id="view-policy-btn" class="action-btn"
+                            style="padding: 10px 25px; font-size: 14px;">View Exit
+                            Policy</button>
+                    </div>
+                </div>
+
+                <!-- Resignation Form Panel -->
+                <div id="resignation-form-panel" style="display: none; padding: 20px;">
+                    <div class="panel-header"
+                        style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+                        <h3><i class="fa-solid fa-pen-to-square"></i> Submit Resignation</h3>
+                        <button class="back-to-exit-hero action-btn" style="font-size: 12px;"><i
+                                class="fa-solid fa-arrow-left"></i> Back</button>
+                    </div>
+                    <form class="info-grid">
+                        <div class="form-group">
+                            <label>Resignation Type</label>
+                            <select class="gray-bg"
+                                style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                                <option>Voluntary Resignation</option>
+                                <option>Retirement</option>
+                                <option>Personal Reasons</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Proposed Last Working Day</label>
+                            <input type="date" class="gray-bg"
+                                style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Reason for Leaving</label>
+                            <textarea rows="4"
+                                style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"></textarea>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Personal Email ID (for future comms)</label>
+                            <input type="email" value="vimalmba59@gmail.com" class="gray-bg"
+                                style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <button type="button" class="action-btn"
+                                style="background-color: #f37021; color: white;">Submit Application</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Exit Policy Panel -->
+                <div id="policy-panel" style="display: none; padding: 20px;">
+                    <div class="panel-header"
+                        style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+                        <h3><i class="fa-solid fa-file-contract"></i> Exit Policy Guidelines</h3>
+                        <button class="back-to-exit-hero action-btn" style="font-size: 12px;"><i
+                                class="fa-solid fa-arrow-left"></i> Back</button>
+                    </div>
+                    <div class="policy-content" style="line-height: 1.8; color: #444;">
+                        <h4 style="color: #1e3a8a; margin-bottom: 10px;">1. Notice Period</h4>
+                        <p style="margin-bottom: 15px;">Employees are required to serve a notice period of <strong>60
+                                days</strong> (2 months) from the date of resignation submission. Early relief is
+                            subject to management discretion and buyout options.</p>
+
+                        <h4 style="color: #1e3a8a; margin-bottom: 10px;">2. Handover Process</h4>
+                        <p style="margin-bottom: 15px;">A complete Knowledge Transfer (KT) plan must be signed off by
+                            the Reporting Manager at least 5 days prior to the last working day.</p>
+
+                        <h4 style="color: #1e3a8a; margin-bottom: 10px;">3. Asset Return</h4>
+                        <p style="margin-bottom: 15px;">All company assets (Laptops, ID Cards, Access Keys) must be
+                            returned to the IT/Admin department on the last working day.</p>
+
+                        <h4 style="color: #1e3a8a; margin-bottom: 10px;">4. Full & Final Settlement</h4>
+                        <p>F&F settlement will be processed within 45 days from the last working day, subject to
+                            clearance from all departments.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

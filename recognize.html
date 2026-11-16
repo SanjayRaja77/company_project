@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="profile-sync.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recognize - KCET</title>
+    <link rel="stylesheet" href="style.css?v=30">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .recognition-hero {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border: 1px solid #fed7aa;
+        }
+
+        .recognition-hero-content {
+            max-width: 50%;
+        }
+
+        .recognition-hero h2 {
+            font-size: 28px;
+            color: #9a3412;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .recognition-hero p {
+            color: #c2410c;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .recognition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .wall-of-fame {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #f1f5f9;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .fame-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 15px;
+        }
+
+        .fame-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .award-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+
+        .award-card:hover {
+            transform: scale(1.02);
+            background: #f1f5f9;
+        }
+
+        .winner-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #fbbf24;
+            object-fit: cover;
+        }
+
+        .winner-info h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .winner-info p {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .award-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #d97706;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .nominate-section {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #f1f5f9;
+            padding: 25px;
+            height: 100%;
+        }
+
+        .nominate-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .nominate-form label {
+            display: block;
+            font-size: 13px;
+            color: #475569;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .nominate-form input,
+        .nominate-form select,
+        .nominate-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #f8fafc;
+        }
+
+        .kudos-bank {
+            text-align: center;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid #bfdbfe;
+        }
+
+        .kudos-count {
+            font-size: 42px;
+            font-weight: 800;
+            color: #2563eb;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="logo-area">
+            <h1>KCET</h1>
+            <p></p>
+        </div>
+        <div class="search-area">
+            <div class="search-box">
+                <input type="text" placeholder="Search for Screens: Eg: Payslip">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="index.html">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="pay.html">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="leave.html">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+            <li class="dropdown">
+                <a href="attendance.html">Attendance & Time Tracking <i class="fa-solid fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Attendance Process Details</a>
+                    <a href="attendance.html">Attendance Calendar</a>
+                    <a href="#">Attendance Correction Dashboard</a>
+                </div>
+            </li>
+            <li><a href="helpdesk.html">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="exit.html">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="asep.html">ASeP <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="recognize.html" class="active">Recognize <i class="fa-solid fa-caret-down"></i></a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i> <span>Home</span> <i class="fa-solid fa-chevron-right"></i>
+        <span class="current">Rewards & Recognition</span>
+    </div>
+
+    <main class="container">
+        <!-- Left Sidebar -->
+        <aside class="profile-sidebar no-photo">
+            <div class="sidebar-header">
+                <span class="status-icon"><i class="fa-solid fa-user-check"></i></span>
+                <h3 id="sidebar-name">Vimalkumar S Profile</h3>
+            </div>
+
+            <div class="profile-details-center">
+                <p class="employee-code" id="sidebar-code">Employee Code: 7001089</p>
+                <p class="designation" id="sidebar-designation">Team Leader</p>
+
+                <div class="contact-info">
+                    <p id="sidebar-phone"><i class="fa-solid fa-phone"></i> 8012616806</p>
+                    <p id="sidebar-email"><i class="fa-solid fa-envelope"></i> Vimalkumar.S@kcet.com</p>
+                </div>
+
+                <div class="experience">
+                    <p>Current Experience in KCET</p>
+                    <div class="exp-years" id="sidebar-exp-years">07.08 years</div>
+                </div>
+
+                <div class="completeness">
+                    <p id="sidebar-completeness-text">Profile completeness: 89%</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="sidebar-progress-bar" style="width: 89%;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content (Right) -->
+        <section class="main-content">
+            <div class="content-panel">
+                <div class="panel-header">
+                    <div class="header-left">
+                        <i class="fa-solid fa-medal"></i>
+                        <h2>REWARDS & RECOGNITION</h2>
+                    </div>
+                </div>
+
+                <div class="recognition-hero">
+                    <div class="recognition-hero-content">
+                        <h2>Celebrate Excellence!</h2>
+                        <p>Recognition is not just about awards; it's about appreciating the effort and passion that
+                            drives our success. Nominate your peers today!</p>
+                        <button class="action-btn"
+                            style="background: #ea580c; color: white; padding: 12px 25px; font-size: 14px;">Nominate a
+                            Colleague</button>
+                    </div>
+                    <img src="recognition_illustration.png" alt="Recognition Trophy"
+                        style="max-height: 200px; width: auto;">
+                </div>
+
+                <div class="recognition-grid">
+                    <!-- Wall of Fame -->
+                    <div class="wall-of-fame">
+                        <div class="fame-header">
+                            <i class="fa-solid fa-trophy" style="color: #ca8a04; font-size: 20px;"></i>
+                            <span class="fame-title">Wall of Fame (Jan 2026)</span>
+                        </div>
+
+                        <div class="award-card">
+                            <img src="https://i.pravatar.cc/150?u=a" class="winner-img">
+                            <div class="winner-info">
+                                <h4>Arjun Mehta</h4>
+                                <p>Sales Director</p>
+                                <span class="award-badge">Star Performer</span>
+                            </div>
+                        </div>
+
+                        <div class="award-card">
+                            <img src="https://i.pravatar.cc/150?u=b" class="winner-img">
+                            <div class="winner-info">
+                                <h4>Sarah Jenkins</h4>
+                                <p>UX Lead</p>
+                                <span class="award-badge">Innovator of the Month</span>
+                            </div>
+                        </div>
+
+                        <div class="award-card">
+                            <img src="https://i.pravatar.cc/150?u=c" class="winner-img">
+                            <div class="winner-info">
+                                <h4>Rahul Verma</h4>
+                                <p>DevOps Engineer</p>
+                                <span class="award-badge">Spot Award</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nominate Form -->
+                    <div class="nominate-section">
+                        <div class="fame-header">
+                            <i class="fa-solid fa-thumbs-up" style="color: var(--primary-orange); font-size: 20px;"></i>
+                            <span class="fame-title">Send Appreciation</span>
+                        </div>
+                        <form class="nominate-form">
+                            <div class="form-group">
+                                <label>Who do you want to appreciate?</label>
+                                <input type="text" placeholder="Search colleague by name...">
+                            </div>
+                            <div class="form-group">
+                                <label>Select Award Type</label>
+                                <select>
+                                    <option>Select an award...</option>
+                                    <option>Thank You Card</option>
+                                    <option>Great Job!</option>
+                                    <option>Going the Extra Mile</option>
+                                    <option>Team Player</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea rows="3" placeholder="Write a few words of appreciation..."></textarea>
+                            </div>
+                            <button type="submit" class="action-btn"
+                                style="width: 100%; justify-content: center; background: var(--primary-orange); color: white;">Send
+                                Kudos</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="kudos-bank">
+                    <h3 style="color: #1e3a8a; font-weight: 700;">My Kudos Bank</h3>
+                    <p style="color: #64748b; font-size: 14px;">Points earned this year</p>
+                    <div class="kudos-count">1,250</div>
+                    <p style="color: #2563eb; font-size: 13px; font-weight: 500;">Redeemable for vouchers and gifts!</p>
+                    <button class="action-btn" style="margin-top: 15px; border-color: #2563eb; color: #2563eb;">Visit
+                        Redemption Store</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

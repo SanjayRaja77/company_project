@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="profile-sync.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Profile - KCET</title>
+    <link rel="stylesheet" href="login.css?v=2">
+    <link rel="stylesheet" href="style.css?v=15">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="login-body">
+        <div id="app-login-view">
+        <div class="login-wrapper">
+
+            <!-- Top Header Bar -->
+            <div class="login-top-bar">
+                <div class="login-logo-text">KCET</div>
+                <div class="divider"></div>
+                <div class="login-top-tagline">Building the Future of Digital Work</div>
+            </div>
+
+            <!-- Main: Left Image + Right Form -->
+            <div class="login-main">
+
+                <!-- Left: Building Photo -->
+                <div class="login-left">
+                    <img src="login_illustration.png" alt="KCET Campus" class="login-bg-img">
+                    <div class="login-left-overlay"></div>
+                    <div class="login-left-content">
+                        <div class="login-left-top">
+                            <h2>Welcome to<br><span>KCET Employee Portal</span></h2>
+                            <p>Your one-stop platform for managing attendance, leave, payroll and more...</p>
+                            <div class="underline-accent"></div>
+                        </div>
+                        <div class="login-left-bottom">
+                            <div class="cursive-text">Together Towards a<br>Digital Future</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Login Card -->
+                <div class="login-right">
+                    <div class="login-card">
+
+                        <!-- Portal Icon -->
+                        <div class="portal-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <!-- Title -->
+                        <div class="login-card-title">
+                            <h2>Employee Portal Login</h2>
+                            <p>Access your account</p>
+                        </div>
+
+                        <!-- Tabs -->
+                        <div class="login-tabs">
+                            <button class="login-tab active" id="tab-employee" type="button">
+                                <i class="fa-solid fa-user"></i> Employee Login
+                            </button>
+                            <button class="login-tab" id="tab-hr" type="button">
+                                <i class="fa-solid fa-shield-halved"></i> HR Login
+                            </button>
+                        </div>
+
+                        <!-- Form -->
+                        <form id="loginForm" autocomplete="off" novalidate>
+                            <div class="input-group" id="username-group">
+                                <label for="username">Employee Email</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-regular fa-user input-icon"></i>
+                                    <input type="text" id="username" placeholder="Enter Employee ID or Email" autocomplete="email">
+                                </div>
+                                <div class="error-message" id="email-error">
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                    <span id="email-error-text">Please enter a valid KCET email address.</span>
+                                </div>
+                            </div>
+
+                            <div class="input-group" id="password-group">
+                                <label for="password">Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-lock input-icon"></i>
+                                    <input type="password" id="password" placeholder="Enter Password" autocomplete="current-password">
+                                    <button type="button" class="toggle-password">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="error-message" id="password-error">
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                    <span id="password-error-text">Incorrect password. Please try again.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <label class="remember-me">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    Remember Me
+                                </label>
+                                <a href="#" class="forgot-link">Forgot Password?</a>
+                            </div>
+
+                            <div class="error-message" id="general-error">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <span id="general-error-text">Please fill in all required fields.</span>
+                            </div>
+
+                            <button type="submit" class="login-btn" id="login-submit-btn">
+                                <span id="login-btn-text">Login</span>
+                                <i class="fa-solid fa-arrow-right" id="login-btn-icon"></i>
+                                <i class="fa-solid fa-spinner fa-spin" id="login-spinner" style="display:none;"></i>
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div><!-- /login-main -->
+
+            <!-- Footer Bar -->
+            <div class="login-footer-bar">
+                <div class="footer-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Secure Access</span>
+                </div>
+                <span class="footer-sep">|</span>
+                <div class="footer-item">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>Need Help? <a href="#">Contact HR Support</a></span>
+                </div>
+                <span class="footer-sep">|</span>
+                <div class="footer-item">
+                    <span>&#169; KCET. All Rights Reserved.</span>
+                </div>
+            </div>
+
+        </div><!-- /login-wrapper -->
+    </div>
+
+    <div id="app-dashboard-view" style="display: none;">
+        <header class="top-header">
+            <div class="logo-area">
+                <h1>KCET</h1>
+                <p></p>
+            </div>
+            <div class="search-area">
+                <div class="search-box">
+                    <input type="text" placeholder="Search for Screens: Eg: Payslip">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <button class="menu-toggle" id="mobile-menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="tel:+918973115612" class="mobile-call-btn" title="Call HR">
+                <i class="fa-solid fa-phone"></i>
+            </a>
+        </header>
+
+        <nav class="main-nav">
+            <ul>
+                <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="#" class="active">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+                <li><a href="pay.html">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+                <li><a href="leave.html">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+                <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+                <li class="dropdown">
+                    <a href="attendance.html">Attendance & Time Tracking <i class="fa-solid fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#">Attendance Process Details</a>
+                        <a href="attendance.html">Attendance Calendar</a>
+                        <a href="#">Attendance Correction Dashboard</a>
+                    </div>
+                </li>
+                <li><a href="helpdesk.html">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+                <li><a href="exit.html">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+                <li><a href="asep.html">ASeP <i class="fa-solid fa-caret-down"></i></a></li>
+                <li><a href="recognize.html">Recognize <i class="fa-solid fa-caret-down"></i></a></li>
+            </ul>
+        </nav>
+
+        <div class="breadcrumb">
+            <i class="fa-solid fa-house"></i> <span>Home</span> <i class="fa-solid fa-chevron-right"></i>
+            <span>Profile</span> <i class="fa-solid fa-chevron-right"></i> <span class="current">Employee Profile</span>
+        </div>
+
+        <main class="container">
+            <!-- Left Sidebar -->
+            <aside class="profile-sidebar">
+                <div class="sidebar-header">
+                    <span class="status-icon"><i class="fa-solid fa-user-check"></i></span>
+                    <h3 id="sidebar-name">Vimalkumar S Profile</h3>
+                </div>
+
+                <div class="profile-photo-container">
+                    <div class="photo-wrapper">
+                        <img src="default-avatar.svg" alt="Profile Photo" id="profile-img">
+                        <button class="edit-photo" id="edit-photo-btn" title="Change Profile Picture">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── Profile Picture Upload Modal ── -->
+                <div id="profile-pic-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;justify-content:center;align-items:center;">
+                    <div style="background:#fff;border-radius:16px;padding:30px;max-width:380px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);text-align:center;border-top:5px solid #f37021;">
+                        <h3 style="margin-bottom:6px;color:#1e293b;font-size:1.1rem;"><i class="fa-solid fa-user-circle" style="color:#f37021;"></i> Change Profile Picture</h3>
+                        <p style="color:#64748b;font-size:0.82rem;margin-bottom:20px;">Accepted: JPG, JPEG, PNG &bull; Max 5 MB</p>
+                        <div style="margin-bottom:18px;">
+                            <img id="profile-preview-img" src="default-avatar.svg" alt="Preview" style="width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid #f37021;box-shadow:0 4px 15px rgba(243,112,33,0.3);">
+                        </div>
+                        <label for="profile-upload" id="upload-label" style="display:inline-block;cursor:pointer;background:#fff7f0;border:2px dashed #f37021;border-radius:10px;padding:14px 24px;color:#f37021;font-weight:600;font-size:0.9rem;margin-bottom:12px;width:100%;box-sizing:border-box;">
+                            <i class="fa-solid fa-upload"></i> Choose Photo from Computer
+                        </label>
+                        <input type="file" id="profile-upload" accept=".jpg,.jpeg,.png" style="display:none;">
+                        <p id="upload-file-name" style="color:#64748b;font-size:0.8rem;margin-bottom:12px;min-height:18px;"></p>
+                        <p id="upload-error" style="color:#ef4444;font-size:0.82rem;margin-bottom:12px;display:none;"><i class="fa-solid fa-circle-exclamation"></i> <span></span></p>
+                        <div style="display:flex;gap:10px;justify-content:center;">
+                            <button id="profile-save-btn" style="background:#f37021;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-weight:600;cursor:pointer;font-size:0.95rem;" disabled>
+                                <i class="fa-solid fa-check"></i> Save
+                            </button>
+                            <button id="profile-cancel-btn" style="background:#f1f5f9;color:#334155;border:none;border-radius:8px;padding:11px 22px;font-weight:600;cursor:pointer;font-size:0.95rem;">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-details-center">
+                    <p class="employee-code" id="sidebar-code">Employee Code: 7001089</p>
+                    <p class="designation" id="sidebar-designation">Team Leader
+                    </p>
+
+                    <div class="contact-info">
+                        <p id="sidebar-phone"><i class="fa-solid fa-phone"></i> 8012616806</p>
+                        <p id="sidebar-email"><i class="fa-solid fa-envelope"></i> Vimalkumar.S@kcet.com</p>
+                    </div>
+
+                    <div class="experience">
+                        <p>Current Experience in KCET</p>
+                        <div class="exp-years" id="sidebar-exp-years">07.08 years</div>
+                    </div>
+
+                    <div class="completeness">
+                        <p id="sidebar-completeness-text">Profile completeness: 89%</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="sidebar-progress-bar" style="width: 89%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content (Right) -->
+            <section class="main-content">
+                <div class="tabs-container">
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-target="basic-info">Basic Info</button>
+                        <button class="tab-btn" data-target="org-info">Organization Info</button>
+                        <button class="tab-btn" data-target="personal-info">Personal Info</button>
+                        <button class="tab-btn" data-target="kye-info">KYE Know Your Employee</button>
+                        <button class="tab-btn" data-target="family-info">Family Information</button>
+                        <button class="tab-btn" data-target="nominee-info">Nominee Details</button>
+                        <button class="tab-btn" data-target="bank-info">Bank Information</button>
+                        <div class="flex-break"></div>
+                        <button class="tab-btn" data-target="emergency-info">Emergency Contact details</button>
+                        <button class="tab-btn" data-target="prev-emp-info">Previous Employment Details</button>
+                        <button class="tab-btn" data-target="edu-info">Education Details</button>
+                        <button class="tab-btn" data-target="comp-info">Compensation</button>
+                        <button class="tab-btn" data-target="lang-info">Language Proficiency</button>
+                        <button class="tab-btn push-right" data-target="contact-info" style="margin-left: auto;">Contact
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Basic Info -->
+                <div id="basic-info" class="content-panel tab-content active">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-regular fa-id-card"></i>
+                            <h2>BASIC INFORMATION</h2>
+                        </div>
+                        <div class="header-actions">
+                            <button id="edit-btn" class="action-btn"><i class="fa-solid fa-pen"></i> Edit</button>
+                            <button id="save-btn" class="action-btn save-btn" style="display: none;"><i
+                                    class="fa-solid fa-check"></i> Save</button>
+                        </div>
+                    </div>
+
+                    <form class="info-grid">
+                        <div class="form-group">
+                            <label>Employee Code</label>
+                            <input type="text" value="7001089" id="input-emp-code" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Salutation</label>
+                            <input type="text" value="Mr." class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" value="Vimalkumar" id="input-first-name" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Middle Name</label>
+                            <input type="text" value="" class="gray-bg">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" value="S" id="input-last-name" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>DOB</label>
+                            <input type="text" value="20/05/1989" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <input type="text" value="Male" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Employee Status</label>
+                            <input type="text" value="Active" class="gray-bg" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Official Email ID</label>
+                            <input type="text" value="Vimalkumar.S@kcet.com" id="input-email" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Joining</label>
+                            <input type="text" value="03/04/2018" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Personal mail ID</label>
+                            <input type="text" value="vimalmba59@gmail.com" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile No</label>
+                            <input type="text" value="8012616806" id="input-mobile" class="gray-bg" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Working day</label>
+                            <input type="text" value="" class="gray-bg">
+                        </div>
+                        <div class="form-group">
+                            <label>Astig Id</label>
+                            <input type="text" value="" class="gray-bg">
+                        </div>
+                        <div class="form-group">
+                            <label>Aadhar Proof <i class="fa-solid fa-circle-info"></i></label>
+                            <input type="text" value="No Document Uploaded" class="gray-bg italic-text" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Recruitment Type</label>
+                            <input type="text" value="" class="gray-bg">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Replacement ID</label>
+                            <input type="text" value="" class="gray-bg">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tab Content: Organization Info -->
+                <div id="org-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-sitemap"></i>
+                            <h2>ORGANIZATION INFORMATION</h2>
+                        </div>
+                    </div>
+
+                    <form class="info-grid">
+                        <div class="form-group">
+                            <label>Designation</label>
+                            <input type="text" value="Team Leader" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input type="text" value="HRO - Payroll" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Unit</label>
+                            <input type="text" value="HRO Operations" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Cost Center</label>
+                            <input type="text" value="CC-1024" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Reporting Manager</label>
+                            <input type="text" value="Saravanan K" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" value="Chennai - OMR" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Grade</label>
+                            <input type="text" value="L4" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Employment Type</label>
+                            <input type="text" value="Full Time" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Shift</label>
+                            <input type="text" value="General Shift" class="gray-bg" readonly>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tab Content: Personal Info -->
+                <div id="personal-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-user-shield"></i>
+                            <h2>PERSONAL INFORMATION</h2>
+                        </div>
+                    </div>
+
+                    <form class="info-grid">
+                        <div class="form-group">
+                            <label>Marital Status</label>
+                            <input type="text" value="Married" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Nationality</label>
+                            <input type="text" value="Indian" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Blood Group</label>
+                            <input type="text" value="O+" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Place of Birth</label>
+                            <input type="text" value="Chennai" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Religion</label>
+                            <input type="text" value="Hindu" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Physically Challenged</label>
+                            <input type="text" value="No" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Father's Name</label>
+                            <input type="text" value="Sunder Rajan" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Mother's Name</label>
+                            <input type="text" value="Lakshmi S" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Spouse Name</label>
+                            <input type="text" value="Anitha V" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Identification Mark 1</label>
+                            <input type="text" value="Mole on right cheek" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Identification Mark 2</label>
+                            <input type="text" value="Scar on forehead" class="gray-bg" readonly>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tab Content: KYE Info -->
+                <div id="kye-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-passport"></i>
+                            <h2>KYE - KNOW YOUR EMPLOYEE</h2>
+                        </div>
+                    </div>
+                    <form class="info-grid">
+                        <div class="form-group">
+                            <label>PAN Number</label>
+                            <input type="text" value="ABCDE1234F" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Aadhar Number</label>
+                            <input type="text" value="XXXX-XXXX-1234" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>UAN Number</label>
+                            <input type="text" value="100900123456" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>PF Number</label>
+                            <input type="text" value="TN/MAS/0012345/000/123" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>ESIC Number</label>
+                            <input type="text" value="—" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Voter ID</label>
+                            <input type="text" value="ABC1234567" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Passport Number</label>
+                            <input type="text" value="Z1234567" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Passport Expiry</label>
+                            <input type="text" value="12/12/2030" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Driving License</label>
+                            <input type="text" value="TN01 20100012345" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Place of Issue</label>
+                            <input type="text" value="Chennai South" class="gray-bg" readonly>
+                        </div>
+
+                        <!-- Document Uploads Section -->
+                        <div style="grid-column: span 2; margin-top: 20px;">
+                            <h4
+                                style="margin-bottom: 15px; color: #475569; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
+                                <i class="fa-solid fa-file-arrow-up"></i> ID Proof Documents
+                            </h4>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Aadhar Card</label>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="action-btn"
+                                    style="font-size: 12px; background: #e0f2fe; color: #0284c7; border: none;"><i
+                                        class="fa-solid fa-eye"></i> View</button>
+                                <span style="font-size: 12px; align-self: center; color: green;"><i
+                                        class="fa-solid fa-circle-check"></i> Verified</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>PAN Card</label>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="action-btn"
+                                    style="font-size: 12px; background: #e0f2fe; color: #0284c7; border: none;"><i
+                                        class="fa-solid fa-eye"></i> View</button>
+                                <span style="font-size: 12px; align-self: center; color: green;"><i
+                                        class="fa-solid fa-circle-check"></i> Verified</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tab Content: Family Info -->
+                <div id="family-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-people-roof"></i>
+                            <h2>FAMILY INFORMATION</h2>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="margin-top: 15px;">
+                        <table class="styled-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #f1f5f9; text-align: left;">
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Name</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Relationship</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Date of Birth</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Dependent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Anitha V</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Spouse</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">15-Aug-1992</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Yes</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Rohan V</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Son</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">10-Jan-2020</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Yes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Nominee Details -->
+                <div id="nominee-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                            <h2>NOMINEE DETAILS</h2>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="margin-top: 15px;">
+                        <table class="styled-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #f1f5f9; text-align: left;">
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Nominee Name</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Relationship</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Coverage Type</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Share %</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Anitha V</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Spouse</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">PF & Gratuity</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">100%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Bank Information -->
+                <div id="bank-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <h2>BANK INFORMATION</h2>
+                        </div>
+                    </div>
+                    <form class="info-grid">
+                        <div class="form-group">
+                            <label>Bank Name</label>
+                            <input type="text" value="HDFC Bank" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Number</label>
+                            <input type="text" value="50100987654321" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>IFSC Code</label>
+                            <input type="text" value="HDFC0001234" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Branch Name</label>
+                            <input type="text" value="Taramani, Chennai" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Type</label>
+                            <input type="text" value="Savings / Salary" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Name as per Bank</label>
+                            <input type="text" value="Vimalkumar S" class="gray-bg" readonly>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tab Content: Emergency Contact -->
+                <div id="emergency-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-truck-medical"></i>
+                            <h2>EMERGENCY CONTACT DETAILS</h2>
+                        </div>
+                    </div>
+                    <div class="info-grid">
+                        <div class="form-group">
+                            <label>Primary Contact Name</label>
+                            <input type="text" value="Anitha V" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Relationship</label>
+                            <input type="text" value="Spouse" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Emergency Mobile</label>
+                            <input type="text" value="9876543210" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" value="Plot 45, OMR Road, Chennai" class="gray-bg" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Previous Employment -->
+                <div id="prev-emp-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <h2>PREVIOUS EMPLOYMENT DETAILS</h2>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="margin-top: 15px;">
+                        <table class="styled-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #f1f5f9; text-align: left;">
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Company Name</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Designation</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">From Date</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">To Date</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Tech Solutions Pvt Ltd
+                                    </td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Senior Associate</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">01-Jun-2015</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">31-Mar-2018</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Bangalore</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Education Details -->
+                <div id="edu-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <h2>EDUCATION DETAILS</h2>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="margin-top: 15px;">
+                        <table class="styled-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #f1f5f9; text-align: left;">
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Qualification</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Institution /
+                                        University</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Year of Passing</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Percentage / CGPA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">MBA (HR)</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Anna University</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">2014</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">8.5 CGPA</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">B.Com</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Madras University</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">2012</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">75%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Compensation -->
+                <div id="comp-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-money-check-dollar"></i>
+                            <h2>COMPENSATION DETAILS</h2>
+                        </div>
+                        <div class="header-actions">
+                            <a href="pay.html" class="action-btn" style="text-decoration: none;"><i
+                                    class="fa-solid fa-file-invoice-dollar"></i> View Payslip</a>
+                        </div>
+                    </div>
+                    <form class="info-grid">
+                        <div class="form-group">
+                            <label>Annual CTC</label>
+                            <input type="text" value="₹ 8,50,000" class="gray-bg" readonly
+                                style="font-weight: bold; color: #166534;">
+                        </div>
+                        <div class="form-group">
+                            <label>Basic Salary (Monthly)</label>
+                            <input type="text" value="₹ 35,000" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>HRA</label>
+                            <input type="text" value="₹ 17,500" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Special Allowance</label>
+                            <input type="text" value="₹ 12,000" class="gray-bg" readonly>
+                        </div>
+                    </form>
+                    <p style="margin-top: 20px; font-size: 13px; color: #64748b;">* Detailed breakdown available in Pay
+                        section.</p>
+                </div>
+
+                <!-- Tab Content: Language Proficiency -->
+                <div id="lang-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-language"></i>
+                            <h2>LANGUAGE PROFICIENCY</h2>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="margin-top: 15px;">
+                        <table class="styled-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #f1f5f9; text-align: left;">
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0;">Language</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0; text-align: center;">
+                                        Read</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0; text-align: center;">
+                                        Write</th>
+                                    <th style="padding: 10px; border-bottom: 2px solid #e2e8f0; text-align: center;">
+                                        Speak</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">English</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-check" style="color: green;"></i></td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-check" style="color: green;"></i></td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-check" style="color: green;"></i></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Tamil</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-check" style="color: green;"></i></td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-check" style="color: green;"></i></td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-check" style="color: green;"></i></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">Hindi</td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-check" style="color: green;"></i></td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-xmark" style="color: #ccc;"></i></td>
+                                    <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: center;"><i
+                                            class="fa-solid fa-check" style="color: green;"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Contact Details -->
+                <div id="contact-info" class="content-panel tab-content" style="display: none;">
+                    <div class="panel-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-address-book"></i>
+                            <h2>CONTACT DETAILS</h2>
+                        </div>
+                    </div>
+                    <div class="info-grid">
+                        <div style="grid-column: span 2;">
+                            <h4
+                                style="margin-bottom: 10px; color: #475569; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
+                                Present Address</h4>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Address Line 1</label>
+                            <input type="text" value="Flat No 4B, River View Apartments" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Address Line 2</label>
+                            <input type="text" value="OMR Road, Sholinganallur" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" value="Chennai" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" value="Tamil Nadu" class="gray-bg" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Pincode</label>
+                            <input type="text" value="600119" class="gray-bg" readonly>
+                        </div>
+
+                        <div style="grid-column: span 2; margin-top: 20px;">
+                            <h4
+                                style="margin-bottom: 10px; color: #475569; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
+                                Permanent Address</h4>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label>Same as Present Address?</label>
+                            <input type="text" value="Yes" class="gray-bg" readonly style="width: 50px;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script src="script.js"></script>
+    </div>
+    <div id="custom-alert" class="modal" style="display: none; z-index: 9999;">
+        <div class="modal-content"
+            style="max-width: 400px; text-align: center; border-radius: 12px; border-top: 5px solid #f37021;">
+            <i class="fa-solid fa-circle-check" style="font-size: 40px; color: #22c55e; margin-bottom: 20px;"></i>
+            <h3 id="alert-title" style="margin-bottom: 10px; color: #333;">Login Successful</h3>
+            <p id="alert-message" style="margin-bottom: 20px; color: #666;">Welcome back!</p>
+            <button onclick="closeCustomAlert()"
+                style="background: #f37021; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer; font-weight: 500;">Continue</button>
+        </div>
+    </div>
+    <script>
+        // ----------------------------------------------------------------
+        // FIX: Clear corrupted localStorage profile (undefined fields)
+        // ----------------------------------------------------------------
+        (function() {
+            try {
+                var stored = localStorage.getItem('userProfile');
+                if (stored) {
+                    var p = JSON.parse(stored);
+                    // If any key field is undefined/null, wipe and let defaults load
+                    if (!p.code || !p.completeness || p.code === 'undefined' || p.completeness === 'undefined') {
+                        localStorage.removeItem('userProfile');
+                    }
+                }
+            } catch(e) { localStorage.removeItem('userProfile'); }
+        })();
+
+        // ----------------------------------------------------------------
+        // KCET LOGIN VALIDATION — Registered employees & credential check
+        // ----------------------------------------------------------------
+
+        // Registered employees (email + SHA-256 of password)
+        // Passwords:
+        //   vimalkumar.s@kcet.com  →  Vimal@2024
+        //   saravanan.k@kcet.com   →  Sara@2024
+        //   admin@kcet.com         →  Admin@2024
+        //   employee@kcet.com      →  Employee@1
+        var KCET_EMPLOYEES = [
+            { email: 'vimalkumar.s@kcet.com', hash: 'cd906d550efaa201fed4d18ebc0c72cde7f925c786f5795a126da2ef83ca2f7f', name: 'Vimalkumar S' },
+            { email: 'saravanan.k@kcet.com',  hash: '0c4abf4208294889106a2f20be264eb7110ac24c40abef9663beb6cf5e1113b0', name: 'Saravanan K'  },
+            { email: 'admin@kcet.com',         hash: 'd3fc50c8f714cebd16d6c827826df01205bf519529f9d34775293cf9b70a420e', name: 'Admin User'   },
+            { email: 'employee@kcet.com',      hash: '7bf1ed397dc568f4b5b2a41f45019b2595db00621f06499549e27e2f16ec174a', name: 'Demo Employee'}
+        ];
+
+        async function kcetSHA256(str) {
+            var buf = new TextEncoder().encode(str);
+            var hBuf = await crypto.subtle.digest('SHA-256', buf);
+            return Array.from(new Uint8Array(hBuf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+        }
+
+        function kcetFindEmployee(email) {
+            var e = email.toLowerCase().trim();
+            for (var i = 0; i < KCET_EMPLOYEES.length; i++) {
+                if (KCET_EMPLOYEES[i].email === e) return KCET_EMPLOYEES[i];
+            }
+            return null;
+        }
+
+        function kcetIsValidEmail(email) {
+            var parts = email.split('@');
+            if (parts.length !== 2) return false;
+            return parts[0].length > 0 && parts[1].indexOf('.') !== -1;
+        }
+
+        function kcetIsKcetEmail(email) {
+            return email.toLowerCase().trim().endsWith('@kcet.com');
+        }
+
+        function kcetShowFieldError(groupId, errorId, textId, msg) {
+            var g = document.getElementById(groupId);
+            var e = document.getElementById(errorId);
+            var t = document.getElementById(textId);
+            if (g) { g.classList.remove('success'); g.classList.add('error'); }
+            if (t) t.textContent = msg;
+            if (e) e.style.display = 'flex';
+        }
+
+        function kcetClearFieldError(groupId, errorId) {
+            var g = document.getElementById(groupId);
+            var e = document.getElementById(errorId);
+            if (g) { g.classList.remove('error'); g.classList.add('success'); }
+            if (e) e.style.display = 'none';
+        }
+
+        function kcetResetField(groupId, errorId) {
+            var g = document.getElementById(groupId);
+            var e = document.getElementById(errorId);
+            if (g) g.classList.remove('error', 'success');
+            if (e) e.style.display = 'none';
+        }
+
+        function kcetShowBanner(msg) {
+            var b = document.getElementById('general-error');
+            var t = document.getElementById('general-error-text');
+            if (t) t.textContent = msg;
+            if (b) b.style.display = 'flex';
+        }
+
+        function kcetHideBanner() {
+            var b = document.getElementById('general-error');
+            if (b) b.style.display = 'none';
+        }
+
+        function showDashboard() {
+            document.getElementById('app-login-view').style.display = 'none';
+            document.getElementById('app-dashboard-view').style.display = 'block';
+            document.body.classList.remove('login-body');
+            window.scrollTo(0, 0);
+            // Apply saved profile image immediately when dashboard shows
+            var _img = localStorage.getItem('kcet_profile_image');
+            if (_img && _img !== 'null' && _img !== 'undefined') {
+                document.querySelectorAll('#profile-img').forEach(function(el){ el.src = _img; });
+            }
+            // Init photo upload modal
+            if (typeof initProfileModal === 'function') initProfileModal();
+        }
+
+        function closeCustomAlert() {
+            document.getElementById('custom-alert').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            if (window.location.search.indexOf('logout=1') !== -1) {
+                try { sessionStorage.removeItem('kcet_logged_in'); } catch(e) {}
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            if (sessionStorage.getItem('kcet_logged_in') === '1') {
+                showDashboard();
+                return;
+            }
+
+            var loginForm   = document.getElementById('loginForm');
+            var emailInput  = document.getElementById('username');
+            var pwdInput    = document.getElementById('password');
+            var submitBtn   = document.getElementById('login-submit-btn');
+
+            if (!loginForm || !emailInput || !pwdInput) return;
+
+            // ── Password toggle ──
+            var toggleBtn = document.querySelector('.toggle-password');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function () {
+                    var isHidden = pwdInput.type === 'password';
+                    pwdInput.type = isHidden ? 'text' : 'password';
+                    var icon = this.querySelector('i');
+                    if (icon) {
+                        icon.className = isHidden ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+                    }
+                });
+            }
+
+            // ── Tab switcher — swaps label, placeholder & left panel image ──
+            var tabEmp   = document.getElementById('tab-employee');
+            var tabHR    = document.getElementById('tab-hr');
+            var emailLabel = document.querySelector('#username-group label');
+            var leftBgImg  = document.querySelector('.login-left .login-bg-img');
+            var leftTitle  = document.querySelector('.login-left-top h2');
+            var leftDesc   = document.querySelector('.login-left-top p');
+            var leftCursive = document.querySelector('.login-left-bottom .cursive-text');
+
+            var loginLeft  = document.querySelector('.login-left');
+
+            if (tabEmp && tabHR) {
+                tabEmp.addEventListener('click', function () {
+                    tabEmp.classList.add('active');
+                    tabHR.classList.remove('active');
+                    emailInput.placeholder = 'Enter Employee ID or Email';
+                    if (emailLabel)  emailLabel.textContent = 'Employee Email';
+                    // Restore building image
+                    if (leftBgImg)  { leftBgImg.style.display = ''; leftBgImg.src = 'login_illustration.png'; }
+                    if (loginLeft)    loginLeft.style.background = '';
+                    if (leftTitle)    leftTitle.innerHTML   = 'Welcome to<br><span>KCET Employee Portal</span>';
+                    if (leftDesc)     leftDesc.textContent  = 'Your one-stop platform for managing attendance, leave, payroll and more...';
+                    if (leftCursive)  leftCursive.innerHTML = 'Together Towards a<br>Digital Future';
+                });
+                tabHR.addEventListener('click', function () {
+                    tabHR.classList.add('active');
+                    tabEmp.classList.remove('active');
+                    emailInput.placeholder = 'Enter HR ID or Email';
+                    if (emailLabel)  emailLabel.textContent = 'HR Email';
+                    // Hide image, show solid dark gradient
+                    if (leftBgImg)  leftBgImg.style.display = 'none';
+                    if (loginLeft)  loginLeft.style.background = 'linear-gradient(145deg, #1e293b 0%, #0f172a 60%, #1a1a2e 100%)';
+                    if (leftTitle)  leftTitle.innerHTML   = 'HR Admin<br><span>Portal Access</span>';
+                    if (leftDesc)   leftDesc.textContent  = 'Manage employees, leave approvals, payroll and HR operations in one place.';
+                    if (leftCursive) leftCursive.innerHTML = 'Empowering HR,<br>Enabling Growth';
+                });
+            }
+
+            loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var email = emailInput.value.trim();
+                var pwd   = pwdInput.value;
+                kcetHideBanner();
+
+                if (!kcetIsValidEmail(email)) {
+                    document.getElementById('email-error').style.display = 'flex';
+                    return;
+                }
+                document.getElementById('email-error').style.display = 'none';
+
+                var emp = kcetFindEmployee(email);
+                if (!emp) {
+                    kcetShowBanner('This email is not registered in KCET system.');
+                    return;
+                }
+
+                if (submitBtn) submitBtn.disabled = true;
+                kcetSHA256(pwd).then(function (hash) {
+                    if (hash === emp.hash) {
+                        sessionStorage.setItem('kcet_logged_in', '1');
+                        // Pre-fill profile defaults for this employee
+                        try {
+                            var stored = localStorage.getItem('userProfile');
+                            if (!stored) {
+                                localStorage.setItem('userProfile', JSON.stringify({
+                                    name: emp.name, code: '7001089',
+                                    designation: 'Team Leader', phone: '8012616806',
+                                    email: email, experience: '07.08 years', completeness: '89'
+                                }));
+                            }
+                        } catch(e) {}
+                        // Route based on active tab
+                        var isHRLogin = tabHR && tabHR.classList.contains('active');
+                        if (isHRLogin) {
+                            // HR Login: get JWT from backend then go to dashboard
+                            fetch('http://localhost:3000/api/auth/login', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email: email, password: pwd })
+                            }).then(function(r) { return r.json(); }).then(function(data) {
+                                if (data.token) {
+                                    sessionStorage.setItem('hr_token', data.token);
+                                    localStorage.setItem('hr_token', data.token);
+                                    window.location.href = 'hr_dashboard.html';
+                                } else {
+                                    // Fallback: go to hr_login page
+                                    window.location.href = 'hr_login.html';
+                                }
+                            }).catch(function() {
+                                // Backend not running — go to hr_login page
+                                window.location.href = 'hr_login.html';
+                            });
+                        } else {
+                            // Employee Login: also get JWT token for backend features (leave, etc.)
+                            fetch('http://localhost:3000/api/auth/login', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email: email, password: pwd })
+                            }).then(function(r) { return r.json(); }).then(function(data) {
+                                if (data.token) {
+                                    sessionStorage.setItem('kcet_emp_token', data.token);
+                                    localStorage.setItem('kcet_emp_token', data.token);
+                                }
+                            }).catch(function() { /* silent fail — employee portal works without backend */ });
+                            setTimeout(function () { showDashboard(); }, 500);
+                        }
+                    } else {
+                        document.getElementById('password-error').style.display = 'flex';
+                        if (submitBtn) submitBtn.disabled = false;
+                    }
+                }).catch(function () {
+                    kcetShowBanner('An error occurred. Please try again.');
+                    if (submitBtn) submitBtn.disabled = false;
+                });
+            });
+        });
+
+        // ── Profile Picture Upload Modal ─────────────────
+        var _modalReady = false;
+        function initProfileModal() {
+            if (_modalReady) return;
+            var modal      = document.getElementById('profile-pic-modal');
+            var editBtn    = document.getElementById('edit-photo-btn');
+            var profileImg = document.getElementById('profile-img');
+            var upload     = document.getElementById('profile-upload');
+            var preview    = document.getElementById('profile-preview-img');
+            var saveBtn    = document.getElementById('profile-save-btn');
+            var cancelBtn  = document.getElementById('profile-cancel-btn');
+            var fileNameEl = document.getElementById('upload-file-name');
+            var errorEl    = document.getElementById('upload-error');
+            var errorTxt   = errorEl ? errorEl.querySelector('span') : null;
+            if (!modal || !editBtn || !upload) return;
+            _modalReady = true;
+            var pending = null;
+            var ALLOWED = ['image/jpeg','image/jpg','image/png'];
+
+            // Helper: check if photo is the default (no real upload yet)
+            function hasPhoto() {
+                var cur = localStorage.getItem('kcet_profile_image');
+                return cur && cur !== 'null' && cur !== 'undefined';
+            }
+
+            // Helper: open the modal
+            function openModal() {
+                pending = null;
+                var cur = localStorage.getItem('kcet_profile_image');
+                if (preview) preview.src = hasPhoto() ? cur : 'default-avatar.svg';
+                if (fileNameEl) fileNameEl.textContent = '';
+                if (errorEl)   errorEl.style.display  = 'none';
+                if (saveBtn)   saveBtn.disabled = true;
+                upload.value = '';
+                modal.style.display = 'flex';
+            }
+
+            // Camera button click
+            editBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (!hasPhoto()) {
+                    // No photo yet — open file picker directly
+                    upload.value = '';
+                    upload.click();
+                } else {
+                    // Photo already set — open modal to preview/change
+                    openModal();
+                }
+            });
+
+            // Also: clicking the blank profile photo opens file picker
+            if (profileImg) {
+                profileImg.style.cursor = 'pointer';
+                profileImg.addEventListener('click', function() {
+                    if (!hasPhoto()) {
+                        upload.value = '';
+                        upload.click();
+                    } else {
+                        openModal();
+                    }
+                });
+            }
+
+            // File chosen from computer
+            upload.addEventListener('change', function() {
+                var f = this.files && this.files[0];
+                if (!f) return;
+                if (ALLOWED.indexOf(f.type.toLowerCase()) === -1) {
+                    if (errorTxt) errorTxt.textContent = 'Only JPG, JPEG or PNG allowed.';
+                    if (errorEl) errorEl.style.display = 'block';
+                    if (saveBtn) saveBtn.disabled = true;
+                    pending = null; return;
+                }
+                if (f.size > 5*1024*1024) {
+                    if (errorTxt) errorTxt.textContent = 'File too large. Max 5 MB.';
+                    if (errorEl) errorEl.style.display = 'block';
+                    if (saveBtn) saveBtn.disabled = true;
+                    pending = null; return;
+                }
+                if (errorEl) errorEl.style.display = 'none';
+                if (fileNameEl) fileNameEl.textContent = f.name + ' (' + (f.size/1024).toFixed(1) + ' KB)';
+                var reader = new FileReader();
+                reader.onload = function(ev) {
+                    pending = ev.target.result;
+                    // Show modal with preview after file is read
+                    if (preview) preview.src = pending;
+                    if (saveBtn) saveBtn.disabled = false;
+                    if (fileNameEl) {}  // already set
+                    if (errorEl) errorEl.style.display = 'none';
+                    modal.style.display = 'flex';
+                };
+                reader.readAsDataURL(f);
+            });
+
+            // SAVE — store + sync all pages
+            saveBtn.addEventListener('click', function() {
+                if (!pending) return;
+                try { localStorage.setItem('kcet_profile_image', pending); } catch(e) {}
+                try {
+                    var raw = localStorage.getItem('userProfile');
+                    var prof = raw ? JSON.parse(raw) : {};
+                    prof.image = pending;
+                    localStorage.setItem('userProfile', JSON.stringify(prof));
+                } catch(e) {}
+                // Apply everywhere on this page
+                document.querySelectorAll('#profile-img').forEach(function(img){ img.src = pending; });
+                // Broadcast to all other open tabs
+                if (window.KCET_PROFILE && window.KCET_PROFILE.saveImage) {
+                    window.KCET_PROFILE.saveImage(pending);
+                }
+                saveBtn.textContent = 'Saved!';
+                saveBtn.style.background = '#22c55e';
+                setTimeout(function() {
+                    modal.style.display = 'none';
+                    saveBtn.innerHTML = '<i class="fa-solid fa-check"></i> Save';
+                    saveBtn.style.background = '#f37021';
+                    saveBtn.disabled = true;
+                    pending = null; upload.value = '';
+                }, 900);
+            });
+
+            // Cancel / close overlay
+            cancelBtn.addEventListener('click', function() {
+                modal.style.display = 'none'; pending = null; upload.value = '';
+            });
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) { modal.style.display = 'none'; pending = null; upload.value = ''; }
+            });
+        }
+    </script>
+</body>
+
+</html>

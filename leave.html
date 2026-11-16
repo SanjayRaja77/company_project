@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="profile-sync.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payippa - Leave</title>
+    <link rel="stylesheet" href="style.css?v=13">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="logo-area">
+            <h1>KCET</h1>
+            <p></p>
+        </div>
+        <div class="search-area">
+            <div class="search-box">
+                <input type="text" placeholder="Search for Screens: Eg: Payslip">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="index.html">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="pay.html">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="leave.html" class="active">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+            <li class="dropdown">
+                <a href="attendance.html">Attendance & Time Tracking <i class="fa-solid fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Attendance Process Details</a>
+                    <a href="attendance.html">Attendance Calendar</a>
+                    <a href="#">Attendance Correction Dashboard</a>
+                </div>
+            </li>
+            <li><a href="helpdesk.html">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="exit.html">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="asep.html">ASeP <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="recognize.html">Recognize <i class="fa-solid fa-caret-down"></i></a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i> <span>Home</span> <i class="fa-solid fa-chevron-right"></i>
+        <span>Leave</span> <i class="fa-solid fa-chevron-right"></i> <span class="current">Leave Dashboard</span>
+    </div>
+
+    <main class="container">
+        <!-- Left Sidebar -->
+        <aside class="profile-sidebar no-photo">
+            <div class="sidebar-header">
+                <span class="status-icon"><i class="fa-solid fa-user-check"></i></span>
+                <h3 id="sidebar-name">Vimalkumar S Profile</h3>
+            </div>
+
+            <div class="profile-details-center">
+                <p class="employee-code" id="sidebar-code">Employee Code: 7001089</p>
+                <p class="designation" id="sidebar-designation">Team Leader</p>
+
+                <div class="contact-info">
+                    <p id="sidebar-phone"><i class="fa-solid fa-phone"></i> 8012616806</p>
+                    <p id="sidebar-email"><i class="fa-solid fa-envelope"></i> Vimalkumar.S@kcet.com</p>
+                </div>
+
+                <div class="experience">
+                    <p>Current Experience in KCET</p>
+                    <div class="exp-years" id="sidebar-exp-years">07.08 years</div>
+                </div>
+
+                <div class="completeness">
+                    <p id="sidebar-completeness-text">Profile completeness: 89%</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="sidebar-progress-bar" style="width: 89%;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content (Right) -->
+        <section class="main-content">
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-target="leave-summary">Leave Summary</button>
+                    <button class="tab-btn" data-target="my-balance">My Leave Balance</button>
+                    <button class="tab-btn" data-target="apply-leave">Apply for Leave</button>
+                    <button class="tab-btn" data-target="team-summary">Team Leave Summary</button>
+                    <button class="tab-btn" data-target="holiday-list">Holiday List</button>
+                </div>
+            </div>
+
+            <!-- Tab Content Panes -->
+            <div class="tab-content">
+                <!-- Leave Summary Tab -->
+                <div id="leave-summary" class="tab-pane active">
+                    <div class="leave-dashboard">
+                        <div class="section-header">
+                            <h2 class="section-title">Leave Balance</h2>
+                            <button class="apply-leave-btn"
+                                onclick="document.querySelector('[data-target=\'apply-leave\']').click()">Apply
+                                Leave</button>
+                        </div>
+
+                        <!-- Leave Balance Cards -->
+                        <div class="leave-balance-grid">
+                            <!-- Sick Leaves -->
+                            <div class="balance-card">
+                                <div class="card-header">
+                                    <div class="type-icon-wrapper">
+                                        <div class="type-icon">
+                                            <i class="fa-solid fa-stethoscope"></i>
+                                        </div>
+                                        <span class="type-name">Sick Leaves</span>
+                                    </div>
+                                    <i class="fa-solid fa-temperature-full secondary-icon"></i>
+                                </div>
+                                <div class="usage-info" id="sick-usage">
+                                    5 <span>/ 10 Days Used</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar" id="sick-progress" style="width: 50%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Vacation -->
+                            <div class="balance-card">
+                                <div class="card-header">
+                                    <div class="type-icon-wrapper">
+                                        <div class="type-icon" style="background-color: #ebf8ff; color: #3182ce;">
+                                            <i class="fa-solid fa-suitcase-rolling"></i>
+                                        </div>
+                                        <span class="type-name">Vacation</span>
+                                    </div>
+                                    <i class="fa-solid fa-sun secondary-icon"></i>
+                                </div>
+                                <div class="usage-info" id="vacation-usage">
+                                    3 <span>/ 10 Days Used</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar" id="vacation-progress"
+                                        style="width: 30%; background: linear-gradient(90deg, #3182ce, #63b3ed);"></div>
+                                </div>
+                            </div>
+
+                            <!-- Casual Leaves -->
+                            <div class="balance-card">
+                                <div class="card-header">
+                                    <div class="type-icon-wrapper">
+                                        <div class="type-icon" style="background-color: #f7fafc; color: #4a5568;">
+                                            <i class="fa-solid fa-calendar-day"></i>
+                                        </div>
+                                        <span class="type-name">Casual Leaves</span>
+                                    </div>
+                                    <i class="fa-solid fa-couch secondary-icon"></i>
+                                </div>
+                                <div class="usage-info" id="casual-usage">
+                                    6 <span>/ 10 Days Used</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar" id="casual-progress"
+                                        style="width: 60%; background: linear-gradient(90deg, #4a5568, #718096);"></div>
+                                </div>
+                            </div>
+
+                            <!-- Total Balance Card -->
+                            <div class="balance-card" style="border-bottom: 4px solid var(--primary-orange);">
+                                <div class="card-header">
+                                    <div class="type-icon-wrapper">
+                                        <div class="type-icon"
+                                            style="background-color: #fffaf0; color: var(--primary-orange);">
+                                            <i class="fa-solid fa-calculator"></i>
+                                        </div>
+                                        <span class="type-name">Overall Balance</span>
+                                    </div>
+                                    <i class="fa-solid fa-bookmark secondary-icon"></i>
+                                </div>
+                                <div class="usage-info" id="total-balance-usage">
+                                    220 <span>Days Available</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar" id="total-balance-progress"
+                                        style="width: 85%; background: var(--primary-orange);"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-header">
+                            <h2 class="section-title">Leave Request History</h2>
+                        </div>
+
+                        <div class="history-section">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Leave Type</th>
+                                        <th>Dates</th>
+                                        <th>Duration</th>
+                                        <th>Reason</th>
+                                        <th>Applied On</th>
+                                        <th>Status</th>
+                                        <th>HR Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-table-body">
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; color: #64748b; padding: 28px;">
+                                            <i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Loading leave requests...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Leave Balance Tab -->
+                <div id="my-balance" class="tab-pane">
+                    <div class="leave-dashboard">
+                        <div class="section-header">
+                            <h2 class="section-title">Detailed Leave Balance</h2>
+                        </div>
+                        <div class="history-section">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Leave Category</th>
+                                        <th>Total Entitled</th>
+                                        <th>Availed</th>
+                                        <th>Carry Forward</th>
+                                        <th>Adjusted</th>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="balance-table-body">
+                                    <tr data-type="Earned Leave">
+                                        <td style="font-weight: 600;">Earned Leave (EL)</td>
+                                        <td>24</td>
+                                        <td>5</td>
+                                        <td>10</td>
+                                        <td>0</td>
+                                        <td style="color: var(--primary-orange); font-weight: 700;">29</td>
+                                    </tr>
+                                    <tr data-type="Sick Leave">
+                                        <td style="font-weight: 600;">Sick Leave (SL)</td>
+                                        <td>10</td>
+                                        <td>5</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td style="color: var(--primary-orange); font-weight: 700;">5</td>
+                                    </tr>
+                                    <tr data-type="Casual Leave">
+                                        <td style="font-weight: 600;">Casual Leave (CL)</td>
+                                        <td>12</td>
+                                        <td>6</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td style="color: var(--primary-orange); font-weight: 700;">6</td>
+                                    </tr>
+                                    <tr data-type="Maternity Leave">
+                                        <td style="font-weight: 600;">Maternity Leave</td>
+                                        <td>180</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td style="color: var(--primary-orange); font-weight: 700;">180</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apply for Leave Tab -->
+                <div id="apply-leave" class="tab-pane">
+                    <div class="leave-dashboard">
+                        <div class="section-header">
+                            <h2 class="section-title">Submit Leave Request</h2>
+                        </div>
+                        <div class="history-section apply-leave-container">
+                            <form class="leave-form" id="leave-form">
+                                <div class="leave-form-grid">
+                                    <div class="form-group">
+                                        <label>Leave Type</label>
+                                        <select id="leave-type-select" required>
+                                            <option value="">Select Leave Type</option>
+                                            <option value="Sick Leave">Sick Leave</option>
+                                            <option value="Earned Leave">Vacation (Earned Leave)</option>
+                                            <option value="Casual Leave">Casual Leave</option>
+                                            <option value="Maternity Leave">Maternity/Paternity</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Leave Duration</label>
+                                        <select id="duration-select">
+                                            <option value="1">Full Day</option>
+                                            <option value="0.5">Half Day (First Half)</option>
+                                            <option value="0.5">Half Day (Second Half)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                        <input type="date" id="start-date" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>End Date</label>
+                                        <input type="date" id="end-date" required>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label>Reason for Leave</label>
+                                        <textarea id="leave-reason" rows="4"
+                                            placeholder="Explain the reason for your leave request..."
+                                            required></textarea>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label>Attachment (Optional)</label>
+                                        <input type="file">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn-secondary">Cancel</button>
+                                    <button type="submit" class="apply-leave-btn">Submit Request</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Leave Summary Tab -->
+                <div id="team-summary" class="tab-pane">
+                    <div class="leave-dashboard">
+                        <div class="section-header">
+                            <h2 class="section-title">Team Leave Overview</h2>
+                        </div>
+                        <div class="team-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">12</span>
+                                <span class="stat-label">Total Team Members</span>
+                            </div>
+                            <div class="stat-item" style="border-top: 4px solid #52c41a;">
+                                <span class="stat-value" style="color: #52c41a;">10</span>
+                                <span class="stat-label">Available Today</span>
+                            </div>
+                            <div class="stat-item" style="border-top: 4px solid #faad14;">
+                                <span class="stat-value" style="color: #faad14;">2</span>
+                                <span class="stat-label">On Leave</span>
+                            </div>
+                        </div>
+                        <div class="history-section">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Leave Type</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <img src="https://placehold.co/30x30" style="border-radius: 50%;">
+                                                <span>Aman Sharma</span>
+                                            </div>
+                                        </td>
+                                        <td>Vacation</td>
+                                        <td>Jan 10, 2026</td>
+                                        <td>Jan 15, 2026</td>
+                                        <td><span class="status-badge status-approved">Approved</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <img src="https://placehold.co/30x30" style="border-radius: 50%;">
+                                                <span>Priya Das</span>
+                                            </div>
+                                        </td>
+                                        <td>Sick Leave</td>
+                                        <td>Jan 10, 2026</td>
+                                        <td>Jan 11, 2026</td>
+                                        <td><span class="status-badge status-approved">Approved</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Holiday List Tab -->
+                <div id="holiday-list" class="tab-pane">
+                    <div class="leave-dashboard">
+                        <div class="section-header">
+                            <h2 class="section-title">Public Holidays</h2>
+                            <div class="selection-controls" style="display: flex; gap: 10px;">
+                                <select id="holiday-year-select"
+                                    style="padding: 6px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; color: #475569;"></select>
+                                <select id="holiday-month-select"
+                                    style="padding: 6px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; color: #475569;">
+                                    <option value="all">All Months</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="holiday-list-container" id="holiday-list-render">
+                            <div class="holiday-card">
+                                <div class="holiday-date">26 <span>Jan</span></div>
+                                <div class="holiday-info">
+                                    <h4>Republic Day</h4>
+                                    <p>Monday</p>
+                                </div>
+                                <span class="holiday-type">National Holiday</span>
+                            </div>
+                            <div class="holiday-card">
+                                <div class="holiday-date">14 <span>Mar</span></div>
+                                <div class="holiday-info">
+                                    <h4>Holi</h4>
+                                    <p>Saturday</p>
+                                </div>
+                                <span class="holiday-type">Festival</span>
+                            </div>
+                            <div class="holiday-card">
+                                <div class="holiday-date">15 <span>Aug</span></div>
+                                <div class="holiday-info">
+                                    <h4>Independence Day</h4>
+                                    <p>Saturday</p>
+                                </div>
+                                <span class="holiday-type">National Holiday</span>
+                            </div>
+                            <div class="holiday-card">
+                                <div class="holiday-date">02 <span>Oct</span></div>
+                                <div class="holiday-info">
+                                    <h4>Gandhi Jayanti</h4>
+                                    <p>Friday</p>
+                                </div>
+                                <span class="holiday-type">National Holiday</span>
+                            </div>
+                            <div class="holiday-card">
+                                <div class="holiday-date">25 <span>Dec</span></div>
+                                <div class="holiday-info">
+                                    <h4>Christmas</h4>
+                                    <p>Friday</p>
+                                </div>
+                                <span class="holiday-type">Festival</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>window.KCET_BACKEND_LEAVE = true;</script>
+    <script src="script.js"></script>
+    <script>
+        const API = 'http://localhost:3000/api';
+
+        function getUserProfile() {
+            try {
+                return JSON.parse(localStorage.getItem('userProfile') || '{}');
+            } catch (e) {
+                return {};
+            }
+        }
+
+        // Get JWT token from session or local storage
+        function getToken() {
+            return sessionStorage.getItem('kcet_emp_token') || localStorage.getItem('kcet_emp_token') || '';
+        }
+
+        async function apiFetch(url, opts = {}) {
+            const profile = getUserProfile();
+            const email = profile.email || 'vimalkumar.s@kcet.com';
+            const code  = profile.code  || '7001089';
+
+            try {
+                const res = await fetch(API + url, {
+                    ...opts,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + getToken(),
+                        'x-employee-email': email,
+                        'x-employee-code': code,
+                        ...(opts.headers || {})
+                    }
+                });
+                return res.json();
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // Show toast notification
+        function showToast(msg, type = 'success') {
+            let toast = document.getElementById('leave-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'leave-toast';
+                toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;padding:14px 20px;border-radius:10px;font-size:.88rem;font-weight:600;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:all .3s;';
+                document.body.appendChild(toast);
+            }
+            toast.style.background = type === 'success' ? '#22c55e' : '#ef4444';
+            toast.textContent = (type === 'success' ? '✅ ' : '❌ ') + msg;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(20px)'; }, 3500);
+        }
+
+        // Load leave history from backend and render into history table
+        async function loadLeaveHistory() {
+            const tbody = document.getElementById('history-table-body');
+            if (!tbody) return;
+
+            const data = await apiFetch('/leave');
+            if (!data || !Array.isArray(data)) return;
+
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: #64748b; padding: 32px;">
+                            <i class="fa-regular fa-calendar-xmark" style="font-size: 1.8rem; display: block; margin-bottom: 8px; opacity: 0.5;"></i>
+                            No leave requests found. Click <strong>Apply for Leave</strong> above to submit a request.
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map(l => {
+                const status = l.status || 'Pending';
+                const statusLower = status.toLowerCase();
+
+                let hrRemarksHtml = '';
+                if (l.hr_note) {
+                    hrRemarksHtml = `<span style="font-weight: 600; color: #1e293b;">${l.hr_note}</span>`;
+                } else if (status === 'Approved') {
+                    hrRemarksHtml = `<span style="color: #16a34a; font-weight: 600;"><i class="fa-solid fa-circle-check" style="margin-right: 4px;"></i> Approved by HR</span>`;
+                } else if (status === 'Rejected') {
+                    hrRemarksHtml = `<span style="color: #dc2626; font-weight: 600;"><i class="fa-solid fa-circle-xmark" style="margin-right: 4px;"></i> Rejected by HR</span>`;
+                } else {
+                    hrRemarksHtml = `<span style="color: #d97706; font-weight: 600;"><i class="fa-solid fa-clock" style="margin-right: 4px;"></i> Pending HR Review</span>`;
+                }
+
+                const appliedDate = l.applied_on ? new Date(l.applied_on).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+
+                return `
+                    <tr>
+                        <td style="font-weight: 600; color: #1e293b;">${l.type}</td>
+                        <td>${l.from_date} &rarr; ${l.to_date}</td>
+                        <td><strong>${l.days || 1}</strong> Day(s)</td>
+                        <td style="max-width: 220px; color: #475569;" title="${l.reason || ''}"><em>${l.reason || '—'}</em></td>
+                        <td style="color: #64748b; font-size: 0.85rem;">${appliedDate}</td>
+                        <td><span class="status-badge status-${statusLower}">${status}</span></td>
+                        <td>${hrRemarksHtml}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // ── Tab switching ──
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panes = document.querySelectorAll('.tab-pane');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.getAttribute('data-target');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    panes.forEach(pane => {
+                        pane.classList.remove('active');
+                        if (pane.id === targetId) pane.classList.add('active');
+                    });
+                });
+            });
+
+            // ── Leave form submit → backend API ──
+            const form = document.getElementById('leave-form');
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const type      = document.getElementById('leave-type-select')?.value;
+                    const from_date = document.getElementById('start-date')?.value;
+                    const to_date   = document.getElementById('end-date')?.value;
+                    const reason    = document.getElementById('leave-reason')?.value?.trim();
+                    const duration  = document.getElementById('duration-select')?.value || 1;
+
+                    if (!type)      { showToast('Please select a leave type', 'error'); return; }
+                    if (!from_date) { showToast('Please select a start date', 'error'); return; }
+                    if (!to_date)   { showToast('Please select an end date', 'error'); return; }
+                    if (!reason)    { showToast('Please enter a reason for leave', 'error'); return; }
+                    if (to_date < from_date) { showToast('End date cannot be before start date', 'error'); return; }
+
+                    // Calculate days
+                    const ms   = new Date(to_date) - new Date(from_date);
+                    const days = Math.round(ms / 86400000) + parseFloat(duration);
+
+                    const submitBtn = form.querySelector('[type="submit"]');
+                    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting...'; }
+
+                    try {
+                        const profile = getUserProfile();
+                        const res = await apiFetch('/leave', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                type,
+                                from_date,
+                                to_date,
+                                days,
+                                reason,
+                                email: profile.email || 'vimalkumar.s@kcet.com'
+                            })
+                        });
+
+                        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Request'; }
+
+                        if (res && res.message) {
+                            showToast('Leave request submitted! HR will review it.', 'success');
+                            form.reset();
+                            await loadLeaveHistory();
+                            // Switch to summary tab to view submitted leave
+                            setTimeout(() => {
+                                const summaryTab = document.querySelector('[data-target="leave-summary"]');
+                                if (summaryTab) summaryTab.click();
+                            }, 500);
+                        } else if (res && res.error) {
+                            showToast(res.error, 'error');
+                        } else {
+                            showToast('Failed to submit. Please try again.', 'error');
+                        }
+                    } catch(err) {
+                        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Request'; }
+                        showToast('Cannot connect to server. Make sure the backend is running.', 'error');
+                    }
+                });
+            }
+
+            // Initial load
+            loadLeaveHistory();
+
+            // Auto-refresh every 3 seconds to catch live HR updates
+            setInterval(loadLeaveHistory, 3000);
+        });
+    </script>
+</body>
+
+</html>

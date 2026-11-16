@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Details - KCET</title>
+    <link rel="stylesheet" href="style.css?v=15">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .details-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 20px;
+        }
+
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .date-badge {
+            background: #fff7ed;
+            color: var(--primary-orange);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .status-pill {
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .status-present {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .detail-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-card h4 {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .time-val {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1e293b;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary-orange);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="logo-area">
+            <h1>KCET</h1>
+            <p></p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="index.html">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="pay.html">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="leave.html">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+            <li class="dropdown">
+                <a href="attendance.html" class="active">Attendance & Time Tracking <i
+                        class="fa-solid fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Attendance Process Details</a>
+                    <a href="attendance.html#attendance-calendar-section">Attendance Calendar</a>
+                    <a href="#">Attendance Correction Dashboard</a>
+                </div>
+            </li>
+            <li><a href="#">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="#">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+        </ul>
+    </nav>
+
+
+    <main class="container" style="display: block; max-width: 1000px; margin: 0 auto;">
+        <div class="breadcrumb" style="padding-left: 0;">
+            <a href="attendance.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Summary</a>
+        </div>
+
+        <div class="details-container">
+            <div class="details-header">
+                <div>
+                    <h2 style="font-size: 24px; color: #1e293b;">Daily Attendance Logs</h2>
+                    <p style="color: #64748b; margin-top: 5px;">Showing detailed punch logs for the selected date</p>
+                </div>
+                <div class="date-badge" id="detail-date">22 Dec 2025</div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-card">
+                    <h4><i class="fa-solid fa-right-to-bracket" style="color: #16a34a;"></i> Arrival Details</h4>
+                    <div class="time-val">09:30:14 AM</div>
+                    <div class="location-info">
+                        <i class="fa-solid fa-location-dot"></i> Noida Office - Gate 2
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <h4><i class="fa-solid fa-right-from-bracket" style="color: #ef4444;"></i> Departure Details</h4>
+                    <div class="time-val">06:45:22 PM</div>
+                    <div class="location-info">
+                        <i class="fa-solid fa-location-dot"></i> Noida Office - Gate 1
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <h4><i class="fa-solid fa-clock" style="color: #3b82f6;"></i> Working Hours</h4>
+                    <div class="time-val">09 Hrs 15 Min</div>
+                    <p style="margin-top: 10px; color: #16a34a; font-weight: 600; font-size: 13px;">Above Threshold
+                        (08:30)</p>
+                </div>
+
+                <div class="detail-card">
+                    <h4><i class="fa-solid fa-circle-check" style="color: #f59e0b;"></i> Status</h4>
+                    <span class="status-pill status-present">Regular Present</span>
+                    <p style="margin-top: 10px; color: #64748b; font-size: 13px;">Late Login: None</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h4 style="color: #1e293b; margin-bottom: 20px; font-weight: 700;">Punch History</h4>
+                <table class="payroll-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Action</th>
+                            <th>Location</th>
+                            <th>Device</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>09:30:14 AM</td>
+                            <td style="color: #16a34a; font-weight: 600;">PUNCH IN</td>
+                            <td>Noida Office</td>
+                            <td>Biometric-04</td>
+                        </tr>
+                        <tr>
+                            <td>01:15:00 PM</td>
+                            <td>BREAK OUT</td>
+                            <td>Cafeteria</td>
+                            <td>Mobile App</td>
+                        </tr>
+                        <tr>
+                            <td>01:45:00 PM</td>
+                            <td>BREAK IN</td>
+                            <td>Noida Office</td>
+                            <td>Mobile App</td>
+                        </tr>
+                        <tr>
+                            <td>06:45:22 PM</td>
+                            <td style="color: #ef4444; font-weight: 600;">PUNCH OUT</td>
+                            <td>Noida Office</td>
+                            <td>Biometric-02</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simple script to pull date from URL
+        const params = new URLSearchParams(window.location.search);
+        const date = params.get('date');
+        if (date) {
+            document.getElementById('detail-date').textContent = date;
+        }
+    </script>
+<script src="profile-sync.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="profile-sync.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay - KCET</title>
+    <link rel="stylesheet" href="style.css?v=15">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="logo-area">
+            <h1>KCET</h1>
+            <p></p>
+        </div>
+        <div class="search-area">
+            <div class="search-box">
+                <input type="text" placeholder="Search for Screens: Eg: Payslip">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="index.html">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="pay.html" class="active">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="leave.html">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+            <li class="dropdown">
+                <a href="attendance.html">Attendance & Time Tracking <i class="fa-solid fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Attendance Process Details</a>
+                    <a href="attendance.html">Attendance Calendar</a>
+                    <a href="#">Attendance Correction Dashboard</a>
+                </div>
+            </li>
+            <li><a href="helpdesk.html">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="exit.html">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="asep.html">ASeP <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="recognize.html">Recognize <i class="fa-solid fa-caret-down"></i></a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i> <span>Home</span> <i class="fa-solid fa-chevron-right"></i>
+        <span>Pay</span> <i class="fa-solid fa-chevron-right"></i> <span class="current">Pay</span>
+    </div>
+
+    <main class="container">
+        <!-- Left Sidebar -->
+        <aside class="profile-sidebar no-photo">
+            <div class="sidebar-header">
+                <span class="status-icon"><i class="fa-solid fa-user-check"></i></span>
+                <h3 id="sidebar-name">Vimalkumar S Profile</h3>
+            </div>
+
+            <div class="profile-details-center">
+                <p class="employee-code" id="sidebar-code">Employee Code: 7001089</p>
+                <p class="designation" id="sidebar-designation">Team Leader
+                </p>
+
+                <div class="contact-info">
+                    <p id="sidebar-phone"><i class="fa-solid fa-phone"></i> 8012616806</p>
+                    <p id="sidebar-email"><i class="fa-solid fa-envelope"></i> Vimalkumar.S@kcet.com</p>
+                </div>
+
+                <div class="experience">
+                    <p>Current Experience in KCET</p>
+                    <div class="exp-years" id="sidebar-exp-years">07.08 years</div>
+                </div>
+
+                <div class="completeness">
+                    <p id="sidebar-completeness-text">Profile completeness: 89%</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="sidebar-progress-bar" style="width: 89%;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content (Right) -->
+        <section class="main-content">
+            <div class="payroll-container" style="padding: 0; background: none; min-height: auto;">
+
+                <div class="page-title-section">
+                    <h2 class="page-main-title">Pay</h2>
+                </div>
+
+                <!-- Selection Panel -->
+                <section class="selection-panel">
+                    <div class="selection-header">
+                        <i class="fa-solid fa-book"></i> Selections: Month: <strong id="selected-period-display">April
+                            2024</strong>
+                    </div>
+                    <div class="selection-controls">
+                        <div class="select-wrapper">
+                            <select id="pay-year-select">
+                                <!-- Years populated by JS -->
+                            </select>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="pay-month-select">
+                                <!-- Months populated by JS -->
+                            </select>
+                        </div>
+                        <button class="show-btn" id="show-pay-btn">Show</button>
+                    </div>
+                </section>
+
+                <!-- Summary Panel -->
+                <section class="summary-panel">
+                    <div class="panel-heading"
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Pay</h3>
+                        <div class="header-actions">
+                            <button id="pay-edit-btn" class="action-btn"><i class="fa-solid fa-pen"></i> Edit</button>
+                            <button id="pay-save-btn" class="action-btn save-btn" style="display: none;"><i
+                                    class="fa-solid fa-check"></i> Save</button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="payroll-table">
+                            <thead>
+                                <tr>
+                                    <th>Earnings</th>
+                                    <th>Gross Earnings</th>
+                                    <th>Total Deductions</th>
+                                    <th>Net Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Basic Salary</td>
+                                    <td class="amount"><input type="text" value="50,000.00"
+                                            class="pay-input earning-item" readonly></td>
+                                    <td class="amount"><input type="text" value="5,200.00"
+                                            class="pay-input total-deductions" readonly></td>
+                                    <td class="amount"><input type="text" value="44,800.00" class="pay-input net-salary"
+                                            readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Conveyance Allowance</td>
+                                    <td class="amount"><input type="text" value="3,000.00"
+                                            class="pay-input earning-item" readonly></td>
+                                    <td class="bold-text">Deductions</td>
+                                    <td class="bold-text amount">Amount</td>
+                                </tr>
+                                <tr>
+                                    <td>Medical Allowance</td>
+                                    <td class="amount"><input type="text" value="2,000.00"
+                                            class="pay-input earning-item" readonly></td>
+                                    <td>Provident Fund (PF)</td>
+                                    <td class="amount"><input type="text" value="2,500.00"
+                                            class="pay-input deduction-item" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Lunch Allowance</td>
+                                    <td class="amount"><input type="text" value="10,000.00"
+                                            class="pay-input earning-item" readonly></td>
+                                    <td>Professional Tax</td>
+                                    <td class="amount"><input type="text" value="200.00"
+                                            class="pay-input deduction-item" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold-text">Total</td>
+                                    <td class="amount bold-text"><input type="text" value="50,000.00"
+                                            class="pay-input bold-input total-earnings" readonly></td>
+                                    <td>Income Tax</td>
+                                    <td class="amount"><input type="text" value="2,500.00"
+                                            class="pay-input deduction-item" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold-text" style="color: #333;">Net Salary</td>
+                                    <td class="amount bold-text"><input type="text" value="50,000.00"
+                                            class="pay-input bold-input net-salary" readonly></td>
+                                    <td class="bold-text">Total</td>
+                                    <td class="amount bold-text"><input type="text" value="44,800.00"
+                                            class="pay-input bold-input total-deductions" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="amount bold-text" style="font-size: 14px;">50,000.00</td>
+                                    <td colspan="2" style="text-align: right; padding: 10px;">
+                                        <button class="view-payslips-btn" id="view-payslip-btn"><i
+                                                class="fa-regular fa-calendar"></i> View Pay Slips
+                                            <i class="fa-solid fa-chevron-right"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Payslip Modal -->
+                <div id="payslip-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <div class="payslip-print-area" id="payslip-print-area">
+                            <div class="payslip-header">
+                                <h2>KCET</h2>
+                                <p>Payslip for the month of <span id="slip-month">April 2024</span></p>
+                            </div>
+                            <div class="payslip-employee-info">
+                                <p><strong>Name:</strong> Vimalkumar S</p>
+                                <p><strong>Employee ID:</strong> 7001089</p>
+                                <p><strong>Designation:</strong> Team Leader</p>
+                                <p><strong>Department:</strong> Engineering</p>
+                            </div>
+                            <table class="payslip-table">
+                                <thead>
+                                    <tr>
+                                        <th>Earnings</th>
+                                        <th>Amount</th>
+                                        <th>Deductions</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="payslip-body">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                                <tfoot>
+                                    <tr class="total-row">
+                                        <td>Total Earnings</td>
+                                        <td id="slip-total-earnings">0.00</td>
+                                        <td>Total Deductions</td>
+                                        <td id="slip-total-deductions">0.00</td>
+                                    </tr>
+                                    <tr class="net-pay-row">
+                                        <td colspan="2">Net Salary Payable</td>
+                                        <td colspan="2" id="slip-net-salary">0.00</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="payslip-footer">
+                                <p>This is a computer generated payslip and does not require a signature.</p>
+                            </div>
+                        </div>
+                        <div class="modal-actions">
+                            <button id="print-btn" class="action-btn"><i class="fa-solid fa-print"></i> Print</button>
+                            <button id="close-btn" class="action-btn"
+                                style="border-color: #666; color: #666;">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

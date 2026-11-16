@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="profile-sync.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance - KCET</title>
+    <link rel="stylesheet" href="style.css?v=15">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .attendance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .punch-card,
+        .birthday-card,
+        .policies-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            height: 100%;
+        }
+
+        .bday-list,
+        .policy-list {
+            margin-top: 15px;
+        }
+
+        .bday-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .bday-item:last-child {
+            border-bottom: none;
+        }
+
+        .bday-img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .bday-info h5 {
+            margin: 0;
+            font-size: 14px;
+            color: #1e293b;
+        }
+
+        .bday-info p {
+            margin: 0;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .bday-icon {
+            margin-left: auto;
+            color: var(--primary-orange);
+            font-size: 14px;
+        }
+
+        .clock-display {
+            font-size: 48px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .date-display {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .punch-actions {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .punch-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-in {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .btn-in:hover {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-out {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .btn-out:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .policy-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+        }
+
+        .policy-item:last-child {
+            border-bottom: none;
+        }
+
+        .policy-item:hover {
+            color: var(--primary-orange);
+            background: #fffaf5;
+            padding-left: 5px;
+        }
+
+        .policy-item i {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .policy-header-div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .policy-header-icon {
+            width: 32px;
+            height: 32px;
+            background: #fef3c7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d97706;
+            margin-right: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="logo-area">
+            <h1>KCET</h1>
+            <p></p>
+        </div>
+        <div class="search-area">
+            <div class="search-box">
+                <input type="text" placeholder="Search for Screens: Eg: Payslip">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="index.html">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="pay.html">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="leave.html">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+            <li class="dropdown">
+                <a href="attendance.html" class="active">Attendance & Time Tracking <i
+                        class="fa-solid fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Attendance Process Details</a>
+                    <a href="calendar.html">Attendance Calendar</a>
+                    <a href="#">Attendance Correction Dashboard</a>
+                </div>
+            </li>
+            <li><a href="helpdesk.html">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="exit.html">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="asep.html">ASeP <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="recognize.html">Recognize <i class="fa-solid fa-caret-down"></i></a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i> <span>Home</span> <i class="fa-solid fa-chevron-right"></i>
+        <span>Attendance & Time Tracking</span> <i class="fa-solid fa-chevron-right"></i> <span
+            class="current">Attendance Summary</span>
+    </div>
+
+    <main class="container">
+        <!-- Left Sidebar -->
+        <aside class="profile-sidebar no-photo">
+            <div class="sidebar-header">
+                <span class="status-icon"><i class="fa-solid fa-user-check"></i></span>
+                <h3 id="sidebar-name">Vimalkumar S Profile</h3>
+            </div>
+
+            <div class="profile-details-center">
+                <p class="employee-code" id="sidebar-code">Employee Code: 7001089</p>
+                <p class="designation" id="sidebar-designation">Team Leader</p>
+
+                <div class="contact-info">
+                    <p id="sidebar-phone"><i class="fa-solid fa-phone"></i> 8012616806</p>
+                    <p id="sidebar-email"><i class="fa-solid fa-envelope"></i> Vimalkumar.S@kcet.com</p>
+                </div>
+
+                <div class="experience">
+                    <p>Current Experience in KCET</p>
+                    <div class="exp-years" id="sidebar-exp-years">07.08 years</div>
+                </div>
+
+                <div class="completeness">
+                    <p id="sidebar-completeness-text">Profile completeness: 89%</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="sidebar-progress-bar" style="width: 89%;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="location.href='attendance.html'">Attendance Summary</button>
+                    <button class="tab-btn" onclick="location.href='calendar.html'">Attendance Calendar</button>
+                    <button class="tab-btn">Attendance Process Details</button>
+                    <button class="tab-btn">Attendance Correction Dashboard</button>
+                </div>
+            </div>
+
+            <div class="attendance-grid">
+                <!-- Punch In/Out Card -->
+                <div class="punch-card">
+                    <div class="clock-display" id="live-clock">16:21:45</div>
+                    <div class="date-display" id="live-date">Monday, 22 December 2025</div>
+                    <p style="margin-bottom: 20px; font-weight: 600; color: var(--primary-orange);">Work From Home</p>
+                    <div class="punch-actions">
+                        <button class="punch-btn btn-in" id="btn-in">
+                            <i class="fa-solid fa-right-to-bracket"></i> PUNCH IN
+                        </button>
+                        <button class="punch-btn btn-out" id="btn-out">
+                            <i class="fa-solid fa-right-from-bracket"></i> PUNCH OUT
+                        </button>
+                    </div>
+                    <div id="punch-status" style="margin-top: 15px; font-size: 13px; color: #64748b;">
+                        Last Punch: <span style="font-weight: 600; color: #1e293b;">10:23 AM</span>
+                    </div>
+                </div>
+
+                <!-- Birthday Card -->
+                <div class="birthday-card">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h4 class="section-title" style="margin: 0; font-size: 18px;">Birthdays Today</h4>
+                        <i class="fa-solid fa-cake-candles" style="color: var(--primary-orange);"></i>
+                    </div>
+                    <div class="bday-list">
+                        <div class="bday-item">
+                            <img src="https://i.pravatar.cc/150?u=1" class="bday-img">
+                            <div class="bday-info">
+                                <h5>Nakul Goswami</h5>
+                                <p>HRO - Payroll | Noida</p>
+                            </div>
+                            <i class="fa-solid fa-heart bday-icon"></i>
+                        </div>
+                        <div class="bday-item">
+                            <img src="https://i.pravatar.cc/150?u=2" class="bday-img">
+                            <div class="bday-info">
+                                <h5>Pon Rajshree</h5>
+                                <p>CHN - Asurint | Chennai</p>
+                            </div>
+                            <i class="fa-solid fa-heart bday-icon"></i>
+                        </div>
+                        <div class="bday-item">
+                            <img src="https://i.pravatar.cc/150?u=3" class="bday-img">
+                            <div class="bday-info">
+                                <h5>Victor Rimei</h5>
+                                <p>MSB Financial | Noida</p>
+                            </div>
+                            <i class="fa-solid fa-heart bday-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policies Card -->
+                <div class="policies-card">
+                    <div class="policy-header-div">
+                        <div class="policy-header-icon">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <h4 class="section-title" style="margin: 0; font-size: 18px;">Policies</h4>
+                    </div>
+                    <div class="policy-list">
+                        <div class="policy-item">
+                            <span>Disciplinary Procedures Policy</span>
+                            <i class="fa-regular fa-circle-right"></i>
+                        </div>
+                        <div class="policy-item">
+                            <span>Leave Policy</span>
+                            <i class="fa-regular fa-circle-right"></i>
+                        </div>
+                        <div class="policy-item">
+                            <span>Business Travel Policy</span>
+                            <i class="fa-regular fa-circle-right"></i>
+                        </div>
+                        <div class="policy-item">
+                            <span>Prevention of Sexual Harassment (POSH)</span>
+                            <i class="fa-regular fa-circle-right"></i>
+                        </div>
+                        <div class="policy-item">
+                            <span>Information Security Policy</span>
+                            <i class="fa-regular fa-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

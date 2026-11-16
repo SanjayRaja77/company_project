@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="profile-sync.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASeP - KCET</title>
+    <link rel="stylesheet" href="style.css?v=25">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .security-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #f1f5f9;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .security-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-orange);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .status-compliant {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-pending {
+            background: #fffbeb;
+            color: #b45309;
+        }
+
+        .module-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .module-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+            color: #475569;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .module-list li:last-child {
+            border-bottom: none;
+        }
+
+        .progress-mini {
+            width: 100px;
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+        }
+
+        .progress-mini-bar {
+            height: 100%;
+            background: var(--primary-orange);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="logo-area">
+            <h1>KCET</h1>
+            <p></p>
+        </div>
+        <div class="search-area">
+            <div class="search-box">
+                <input type="text" placeholder="Search for Screens: Eg: Payslip">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="index.html">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="pay.html">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="leave.html">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+            <li class="dropdown">
+                <a href="attendance.html">Attendance & Time Tracking <i class="fa-solid fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Attendance Process Details</a>
+                    <a href="attendance.html">Attendance Calendar</a>
+                    <a href="#">Attendance Correction Dashboard</a>
+                </div>
+            </li>
+            <li><a href="helpdesk.html">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="exit.html">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="asep.html" class="active">ASeP <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="recognize.html">Recognize <i class="fa-solid fa-caret-down"></i></a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i> <span>Home</span> <i class="fa-solid fa-chevron-right"></i>
+        <span class="current">Information Security & Policy (ASeP)</span>
+    </div>
+
+    <main class="container">
+        <!-- Left Sidebar -->
+        <aside class="profile-sidebar no-photo">
+            <div class="sidebar-header">
+                <span class="status-icon"><i class="fa-solid fa-user-check"></i></span>
+                <h3 id="sidebar-name">Vimalkumar S Profile</h3>
+            </div>
+
+            <div class="profile-details-center">
+                <p class="employee-code" id="sidebar-code">Employee Code: 7001089</p>
+                <p class="designation" id="sidebar-designation">Team Leader</p>
+
+                <div class="contact-info">
+                    <p id="sidebar-phone"><i class="fa-solid fa-phone"></i> 8012616806</p>
+                    <p id="sidebar-email"><i class="fa-solid fa-envelope"></i> Vimalkumar.S@kcet.com</p>
+                </div>
+
+                <div class="experience">
+                    <p>Current Experience in KCET</p>
+                    <div class="exp-years" id="sidebar-exp-years">07.08 years</div>
+                </div>
+
+                <div class="completeness">
+                    <p id="sidebar-completeness-text">Profile completeness: 89%</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="sidebar-progress-bar" style="width: 89%;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content (Right) -->
+        <section class="main-content">
+            <div class="content-panel">
+                <div class="panel-header">
+                    <div class="header-left">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h2>ASeP - SECURITY POLICY & COMPLIANCE</h2>
+                    </div>
+                    <div class="header-actions">
+                        <span style="font-size: 12px; color: #666;">Last Audit: <span
+                                style="font-weight: 600; color: #333;">Dec 2025</span></span>
+                    </div>
+                </div>
+
+                <div
+                    style="background: linear-gradient(to right, #f8fafc, white); border-radius: 8px; padding: 25px; display: flex; align-items: center; gap: 30px; margin-bottom: 30px;">
+                    <img src="asep_illustration.png" alt="Security Shield" style="width: 120px; height: auto;">
+                    <div>
+                        <h3 style="font-size: 20px; color: #1e293b; margin-bottom: 10px; font-weight: 700;">Information
+                            Security Awareness</h3>
+                        <p style="color: #64748b; font-size: 14px; line-height: 1.5; margin-bottom: 15px;">
+                            KCET is committed to maintaining the highest standards of information security.
+                            As an employee, it is mandatory to complete the quarterly security awareness training and
+                            adhere to the Acceptable Use Policy.
+                        </p>
+                        <div style="display: flex; gap: 15px;">
+                            <button class="action-btn" style="background: var(--primary-orange); color: white;">View
+                                Latest Policy</button>
+                            <button class="action-btn">Report Incident</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 15px;">Mandatory Compliance
+                    Training</h3>
+
+                <div class="security-grid">
+                    <div class="security-card">
+                        <div
+                            style="width: 50px; height: 50px; background: #e0f2fe; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                            <i class="fa-solid fa-lock" style="color: #0284c7; font-size: 20px;"></i>
+                        </div>
+                        <h4 style="font-size: 15px; font-weight: 600; color: #333;">Data Privacy (GDPR/DPDP)</h4>
+                        <span class="status-badge status-compliant">Completed</span>
+                        <ul class="module-list">
+                            <li>
+                                <span>Module 1: Basics</span>
+                                <i class="fa-solid fa-check-circle" style="color: #15803d;"></i>
+                            </li>
+                            <li>
+                                <span>Module 2: Handling PII</span>
+                                <i class="fa-solid fa-check-circle" style="color: #15803d;"></i>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="security-card">
+                        <div
+                            style="width: 50px; height: 50px; background: #fff7ed; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                            <i class="fa-solid fa-user-shield" style="color: #ea580c; font-size: 20px;"></i>
+                        </div>
+                        <h4 style="font-size: 15px; font-weight: 600; color: #333;">ISMS Awareness Q1 2026</h4>
+                        <span class="status-badge status-pending">In Progress</span>
+                        <ul class="module-list">
+                            <li>
+                                <span>Phishing Awareness</span>
+                                <div class="progress-mini">
+                                    <div class="progress-mini-bar" style="width: 100%;"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Password Security</span>
+                                <div class="progress-mini">
+                                    <div class="progress-mini-bar" style="width: 40%;"></div>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="action-btn"
+                            style="width: 100%; justify-content: center; margin-top: 15px;">Continue Training</button>
+                    </div>
+
+                    <div class="security-card">
+                        <div
+                            style="width: 50px; height: 50px; background: #f0fdf4; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                            <i class="fa-solid fa-laptop-file" style="color: #16a34a; font-size: 20px;"></i>
+                        </div>
+                        <h4 style="font-size: 15px; font-weight: 600; color: #333;">Acceptable Use Policy</h4>
+                        <span class="status-badge status-compliant">Acknowledged</span>
+                        <p style="font-size: 12px; color: #666; margin-top: 15px;">
+                            Signed on: <strong>Jan 02, 2026</strong><br>
+                            Next Renewal: <strong>Jan 02, 2027</strong>
+                        </p>
+                        <button class="action-btn"
+                            style="width: 100%; justify-content: center; margin-top: 15px; border-color: #ddd; color: #666;">View
+                            Signed Copy</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h3 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 20px;">Quick Downloads
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <div
+                            style="display: flex; align-items: center; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <i class="fa-solid fa-file-pdf"
+                                style="color: #ef4444; font-size: 24px; margin-right: 15px;"></i>
+                            <div>
+                                <h5 style="font-size: 14px; font-weight: 600;">Information Security Policy v4.2</h5>
+                                <p style="font-size: 11px; color: #64748b;">Updated: Dec 15, 2025</p>
+                            </div>
+                            <i class="fa-solid fa-download"
+                                style="margin-left: auto; color: #94a3b8; cursor: pointer;"></i>
+                        </div>
+                        <div
+                            style="display: flex; align-items: center; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <i class="fa-solid fa-file-pdf"
+                                style="color: #ef4444; font-size: 24px; margin-right: 15px;"></i>
+                            <div>
+                                <h5 style="font-size: 14px; font-weight: 600;">Remote Work Guidelines</h5>
+                                <p style="font-size: 11px; color: #64748b;">Updated: Jan 05, 2026</p>
+                            </div>
+                            <i class="fa-solid fa-download"
+                                style="margin-left: auto; color: #94a3b8; cursor: pointer;"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

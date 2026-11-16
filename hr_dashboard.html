@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Portal - KCET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --orange: #f37021; --orange-dark: #d65a12; --orange-light: #fff3ea;
+            --navy: #1e293b;   --navy-dark: #0f172a;
+            --bg: #f1f5f9;     --white: #ffffff;
+            --border: #e2e8f0; --text: #334155; --muted: #64748b;
+            --green: #22c55e;  --red: #ef4444;  --blue: #3b82f6; --yellow: #f59e0b;
+            --sidebar: 240px;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
+        body { background:var(--bg); display:flex; height:100vh; overflow:hidden; color:var(--text); }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width:var(--sidebar); background:var(--navy); color:#fff;
+            display:flex; flex-direction:column; flex-shrink:0;
+            transition:transform .3s; z-index:100;
+        }
+        .sidebar-brand {
+            padding:20px 20px 16px; border-bottom:1px solid rgba(255,255,255,.08);
+            display:flex; align-items:center; gap:10px;
+        }
+        .sidebar-brand .logo { font-size:1.4rem; font-weight:800; color:var(--orange); }
+        .sidebar-brand .badge {
+            background:rgba(243,112,33,.2); color:var(--orange);
+            font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px; letter-spacing:.5px;
+        }
+        .sidebar-hr-info {
+            padding:16px 20px; border-bottom:1px solid rgba(255,255,255,.08);
+            display:flex; align-items:center; gap:10px;
+        }
+        .sidebar-hr-avatar {
+            width:38px; height:38px; border-radius:50%; background:var(--orange);
+            display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.95rem;
+            flex-shrink:0; overflow:hidden;
+        }
+        .sidebar-hr-avatar img { width:100%; height:100%; object-fit:cover; }
+        .sidebar-hr-name { font-size:.85rem; font-weight:600; color:#fff; }
+        .sidebar-hr-role { font-size:.72rem; color:#94a3b8; }
+        nav { flex:1; padding:10px 0; overflow-y:auto; }
+        .nav-item {
+            display:flex; align-items:center; gap:12px;
+            padding:11px 20px; color:#94a3b8; cursor:pointer;
+            transition:all .2s; border-left:3px solid transparent;
+            text-decoration:none; font-size:.88rem;
+        }
+        .nav-item:hover { background:rgba(255,255,255,.05); color:#fff; border-left-color:rgba(243,112,33,.4); }
+        .nav-item.active { background:rgba(243,112,33,.1); color:#fff; border-left-color:var(--orange); }
+        .nav-item i { width:18px; text-align:center; font-size:.9rem; }
+        .nav-item .badge-count {
+            margin-left:auto; background:var(--orange); color:#fff;
+            font-size:10px; padding:1px 6px; border-radius:10px; font-weight:700;
+        }
+        .sidebar-footer {
+            padding:16px 20px; border-top:1px solid rgba(255,255,255,.08);
+        }
+        .logout-btn {
+            display:flex; align-items:center; gap:10px;
+            color:#94a3b8; cursor:pointer; font-size:.85rem;
+            background:none; border:none; width:100%; padding:8px 0;
+        }
+        .logout-btn:hover { color:#ef4444; }
+
+        /* ── Main ── */
+        .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+        .topbar {
+            background:var(--white); padding:14px 28px;
+            border-bottom:1px solid var(--border);
+            display:flex; justify-content:space-between; align-items:center; gap:16px;
+        }
+        .topbar-left { display:flex; align-items:center; gap:14px; }
+        .menu-toggle {
+            display:none; background:none; border:none; cursor:pointer;
+            font-size:1.2rem; color:var(--text);
+        }
+        .page-breadcrumb { font-size:.8rem; color:var(--muted); }
+        .page-breadcrumb span { color:var(--orange); font-weight:600; }
+        .topbar-right { display:flex; align-items:center; gap:12px; }
+        .topbar-btn {
+            position:relative; background:var(--bg); border:1px solid var(--border);
+            border-radius:8px; padding:7px 10px; cursor:pointer; color:var(--text);
+            font-size:.9rem; transition:all .2s;
+        }
+        .topbar-btn:hover { background:var(--orange-light); border-color:var(--orange); color:var(--orange); }
+        .notif-dot {
+            position:absolute; top:4px; right:4px; width:8px; height:8px;
+            background:var(--red); border-radius:50%; border:2px solid #fff;
+        }
+        .topbar-search {
+            display:flex; align-items:center; gap:8px;
+            background:var(--bg); border:1px solid var(--border);
+            border-radius:8px; padding:7px 12px;
+        }
+        .topbar-search input { border:none; background:none; outline:none; font-size:.88rem; width:160px; color:var(--text); }
+        .topbar-search i { color:var(--muted); font-size:.85rem; }
+
+        /* ── Content ── */
+        .content { flex:1; overflow-y:auto; padding:24px 28px; }
+        .page-section { display:none; }
+        .page-section.active { display:block; }
+        .page-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
+        .page-header h1 { font-size:1.3rem; font-weight:700; color:var(--text); }
+        .page-header p { font-size:.82rem; color:var(--muted); margin-top:2px; }
+
+        /* Buttons */
+        .btn {
+            padding:8px 16px; border-radius:8px; border:none; cursor:pointer;
+            font-size:.85rem; font-weight:600; display:inline-flex;
+            align-items:center; gap:7px; transition:all .2s;
+        }
+        .btn-primary { background:var(--orange); color:#fff; }
+        .btn-primary:hover { background:var(--orange-dark); }
+        .btn-outline { background:#fff; color:var(--text); border:1px solid var(--border); }
+        .btn-outline:hover { border-color:var(--orange); color:var(--orange); }
+        .btn-success { background:#dcfce7; color:#166534; }
+        .btn-success:hover { background:#22c55e; color:#fff; }
+        .btn-danger { background:#fef2f2; color:#ef4444; }
+        .btn-danger:hover { background:#ef4444; color:#fff; }
+        .btn-sm { padding:5px 10px; font-size:.78rem; }
+
+        /* Stats grid */
+        .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; margin-bottom:24px; }
+        .stat-card {
+            background:var(--white); border-radius:12px; padding:18px;
+            border:1px solid var(--border); display:flex; align-items:center; gap:14px;
+        }
+        .stat-icon {
+            width:46px; height:46px; border-radius:10px;
+            display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0;
+        }
+        .stat-icon.orange { background:var(--orange-light); color:var(--orange); }
+        .stat-icon.green  { background:#dcfce7; color:#22c55e; }
+        .stat-icon.red    { background:#fef2f2; color:#ef4444; }
+        .stat-icon.blue   { background:#eff6ff; color:#3b82f6; }
+        .stat-icon.yellow { background:#fefce8; color:#f59e0b; }
+        .stat-icon.purple { background:#faf5ff; color:#8b5cf6; }
+        .stat-num { font-size:1.6rem; font-weight:800; color:var(--text); line-height:1; }
+        .stat-label { font-size:.75rem; color:var(--muted); margin-top:3px; }
+
+        /* Cards */
+        .card { background:var(--white); border-radius:12px; border:1px solid var(--border); overflow:hidden; }
+        .card-head {
+            padding:14px 18px; border-bottom:1px solid var(--border);
+            display:flex; justify-content:space-between; align-items:center;
+        }
+        .card-head h3 { font-size:.95rem; font-weight:600; }
+        .card-body { padding:18px; }
+        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+        .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+
+        /* Tables */
+        .table-wrap { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; font-size:.85rem; }
+        th { padding:10px 14px; text-align:left; color:var(--muted); font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.4px; border-bottom:1px solid var(--border); background:#f8fafc; }
+        td { padding:12px 14px; border-bottom:1px solid #f1f5f9; color:var(--text); }
+        tr:last-child td { border-bottom:none; }
+        tr:hover td { background:#fafafa; }
+
+        /* Badges */
+        .badge { padding:3px 10px; border-radius:20px; font-size:.72rem; font-weight:600; }
+        .badge-green  { background:#dcfce7; color:#166534; }
+        .badge-red    { background:#fef2f2; color:#ef4444; }
+        .badge-yellow { background:#fefce8; color:#854d0e; }
+        .badge-blue   { background:#eff6ff; color:#1d4ed8; }
+        .badge-gray   { background:#f1f5f9; color:#64748b; }
+        .badge-orange { background:var(--orange-light); color:var(--orange); }
+
+        /* Employee list */
+        .emp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+        .emp-card {
+            background:var(--white); border-radius:12px; border:1px solid var(--border);
+            padding:18px; cursor:pointer; transition:all .25s;
+        }
+        .emp-card:hover { border-color:var(--orange); box-shadow:0 4px 20px rgba(243,112,33,.1); transform:translateY(-2px); }
+        .emp-card-top { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+        .emp-avatar {
+            width:46px; height:46px; border-radius:50%; background:var(--orange);
+            display:flex; align-items:center; justify-content:center;
+            font-weight:700; color:#fff; font-size:1rem; flex-shrink:0; overflow:hidden;
+        }
+        .emp-avatar img { width:100%; height:100%; object-fit:cover; }
+        .emp-name { font-weight:600; font-size:.9rem; }
+        .emp-code { font-size:.75rem; color:var(--muted); }
+        .emp-info-row { display:flex; align-items:center; gap:7px; font-size:.78rem; color:var(--muted); margin-top:5px; }
+        .emp-info-row i { width:14px; color:var(--orange); font-size:.75rem; }
+
+        /* Employee Profile Modal */
+        .modal-overlay {
+            position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:200;
+            display:none; align-items:flex-start; justify-content:center;
+            padding:20px; overflow-y:auto;
+        }
+        .modal-overlay.open { display:flex; }
+        .modal {
+            background:var(--white); border-radius:16px; width:100%; max-width:860px;
+            margin:auto; overflow:hidden;
+            box-shadow:0 25px 60px rgba(0,0,0,.2);
+        }
+        .modal-header {
+            background:var(--navy); color:#fff; padding:20px 24px;
+            display:flex; justify-content:space-between; align-items:center;
+        }
+        .modal-header h2 { font-size:1.1rem; }
+        .modal-close { background:none; border:none; color:#94a3b8; cursor:pointer; font-size:1.2rem; }
+        .modal-close:hover { color:#fff; }
+        .modal-body { padding:0; }
+        .emp-profile-hero {
+            background:linear-gradient(135deg,var(--navy) 0%,#1e3a5f 100%);
+            padding:24px; display:flex; align-items:center; gap:20px;
+        }
+        .emp-profile-photo {
+            width:80px; height:80px; border-radius:50%;
+            border:3px solid var(--orange); object-fit:cover;
+            background:var(--orange); display:flex; align-items:center;
+            justify-content:center; font-size:2rem; color:#fff; font-weight:700;
+            flex-shrink:0; overflow:hidden;
+        }
+        .emp-profile-photo img { width:100%; height:100%; object-fit:cover; }
+        .emp-profile-info h2 { color:#fff; font-size:1.2rem; }
+        .emp-profile-info p  { color:#94a3b8; font-size:.85rem; margin-top:3px; }
+        .emp-profile-tags { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+        .modal-tabs { display:flex; border-bottom:1px solid var(--border); overflow-x:auto; }
+        .modal-tab {
+            padding:12px 18px; cursor:pointer; font-size:.85rem; font-weight:600;
+            color:var(--muted); border-bottom:2px solid transparent; white-space:nowrap;
+        }
+        .modal-tab.active { color:var(--orange); border-bottom-color:var(--orange); }
+        .modal-tab-content { padding:20px 24px; }
+        .tab-panel { display:none; }
+        .tab-panel.active { display:block; }
+        .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+        .info-item label { display:block; font-size:.72rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.4px; margin-bottom:3px; }
+        .info-item span  { font-size:.88rem; color:var(--text); font-weight:500; }
+
+        /* Activity list */
+        .activity-list { list-style:none; }
+        .activity-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #f1f5f9; }
+        .activity-item:last-child { border-bottom:none; }
+        .activity-icon { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.75rem; flex-shrink:0; }
+        .activity-text { font-size:.83rem; color:var(--text); }
+        .activity-time { font-size:.72rem; color:var(--muted); margin-top:2px; }
+
+        /* Approval cards */
+        .approval-card {
+            background:var(--white); border-radius:12px; border:1px solid var(--border);
+            padding:16px 18px; margin-bottom:12px; display:flex; align-items:center; gap:14px;
+        }
+        .approval-info { flex:1; }
+        .approval-name { font-weight:600; font-size:.9rem; }
+        .approval-detail { font-size:.78rem; color:var(--muted); margin-top:3px; }
+        .approval-actions { display:flex; gap:8px; }
+
+        /* Charts placeholder */
+        .chart-placeholder {
+            background:var(--bg); border-radius:10px; padding:40px 20px;
+            text-align:center; color:var(--muted); font-size:.85rem;
+        }
+
+        /* Form */
+        .form-group { margin-bottom:16px; }
+        .form-group label { display:block; font-size:.82rem; font-weight:600; color:var(--text); margin-bottom:6px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width:100%; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px;
+            font-size:.88rem; color:var(--text); background:#f8fafc; outline:none; transition:border-color .2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color:var(--orange); background:#fff;
+        }
+        .form-group textarea { resize:vertical; min-height:80px; }
+
+        /* Payroll */
+        .pay-summary {
+            display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;
+        }
+        .pay-chip {
+            background:var(--bg); border:1px solid var(--border); border-radius:8px;
+            padding:8px 14px; font-size:.8rem; color:var(--muted);
+        }
+        .pay-chip strong { color:var(--text); font-size:1rem; display:block; }
+
+        /* Toast */
+        .toast {
+            position:fixed; bottom:24px; right:24px; z-index:999;
+            background:var(--navy); color:#fff; padding:12px 20px; border-radius:10px;
+            font-size:.85rem; display:flex; align-items:center; gap:10px;
+            box-shadow:0 8px 24px rgba(0,0,0,.2); transform:translateY(100px);
+            transition:transform .3s; max-width:320px;
+        }
+        .toast.show { transform:translateY(0); }
+        .toast.success { border-left:4px solid var(--green); }
+        .toast.error   { border-left:4px solid var(--red); }
+
+        /* Loader */
+        .loader { text-align:center; padding:40px; color:var(--muted); }
+        .loader i { font-size:2rem; animation:spin 1s linear infinite; color:var(--orange); }
+        @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+        /* Report table */
+        .report-actions { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+
+        /* Settings */
+        .settings-grid { display:grid; grid-template-columns:240px 1fr; gap:20px; }
+        .settings-nav { background:var(--white); border-radius:12px; border:1px solid var(--border); overflow:hidden; }
+        .settings-nav-item { padding:12px 18px; cursor:pointer; font-size:.85rem; color:var(--muted); display:flex; align-items:center; gap:10px; border-left:3px solid transparent; }
+        .settings-nav-item:hover { background:var(--bg); color:var(--text); }
+        .settings-nav-item.active { background:var(--orange-light); color:var(--orange); border-left-color:var(--orange); font-weight:600; }
+        .settings-panel { display:none; }
+        .settings-panel.active { display:block; }
+
+        /* Mobile */
+        @media(max-width:768px) {
+            .sidebar { position:fixed; left:0; top:0; height:100%; transform:translateX(-100%); }
+            .sidebar.open { transform:translateX(0); }
+            .menu-toggle { display:block; }
+            .grid-2, .grid-3 { grid-template-columns:1fr; }
+            .settings-grid { grid-template-columns:1fr; }
+            .info-grid { grid-template-columns:1fr; }
+            .stats-grid { grid-template-columns:repeat(2,1fr); }
+            .content { padding:16px; }
+            .topbar { padding:12px 16px; }
+            .topbar-search { display:none; }
+        }
+        @media(max-width:480px) {
+            .stats-grid { grid-template-columns:1fr 1fr; }
+            .emp-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <span class="logo">KCET</span>
+        <span class="badge">HR PORTAL</span>
+    </div>
+    <div class="sidebar-hr-info">
+        <div class="sidebar-hr-avatar" id="hr-avatar-sidebar">A</div>
+        <div>
+            <div class="sidebar-hr-name" id="hr-name-sidebar">HR Admin</div>
+            <div class="sidebar-hr-role">HR Manager</div>
+        </div>
+    </div>
+    <nav>
+        <a class="nav-item active" data-page="dashboard">
+            <i class="fa-solid fa-gauge-high"></i> Dashboard
+        </a>
+        <a class="nav-item" data-page="employees">
+            <i class="fa-solid fa-users"></i> Employees
+        </a>
+        <a class="nav-item" data-page="approvals">
+            <i class="fa-solid fa-clipboard-check"></i> Approvals
+            <span class="badge-count" id="pending-badge">0</span>
+        </a>
+        <a class="nav-item" data-page="payroll">
+            <i class="fa-solid fa-money-bill-wave"></i> Payroll
+        </a>
+        <a class="nav-item" data-page="reports">
+            <i class="fa-solid fa-chart-bar"></i> Reports
+        </a>
+        <a class="nav-item" data-page="settings">
+            <i class="fa-solid fa-gear"></i> Settings
+        </a>
+    </nav>
+    <div class="sidebar-footer">
+        <button class="logout-btn" id="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <button class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="page-breadcrumb">HR Portal / <span id="page-title-label">Dashboard</span></div>
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="global-search" placeholder="Search employees...">
+            </div>
+            <button class="topbar-btn" id="refresh-btn" title="Refresh">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
+            <button class="topbar-btn" title="Notifications" onclick="navigate('approvals')">
+                <i class="fa-solid fa-bell"></i>
+                <span class="notif-dot"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- ── DASHBOARD ── -->
+        <div class="page-section active" id="page-dashboard">
+            <div class="page-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p id="dashboard-date">Loading...</p>
+                </div>
+                <button class="btn btn-primary" onclick="loadDashboard()">
+                    <i class="fa-solid fa-rotate-right"></i> Refresh
+                </button>
+            </div>
+            <div class="stats-grid" id="stats-grid">
+                <div class="loader"><i class="fa-solid fa-spinner"></i></div>
+            </div>
+            <div class="grid-2" style="margin-top:20px;">
+                <div class="card">
+                    <div class="card-head">
+                        <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--orange);margin-right:8px;"></i>Recent Activities</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="activity-list" id="activity-list">
+                            <li class="loader"><i class="fa-solid fa-spinner"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-head">
+                        <h3><i class="fa-solid fa-chart-pie" style="color:var(--orange);margin-right:8px;"></i>HR Statistics</h3>
+                        <button class="btn btn-outline btn-sm" onclick="navigate('reports')">View Reports</button>
+                    </div>
+                    <div class="card-body" id="hr-stats-body">
+                        <div class="loader"><i class="fa-solid fa-spinner"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── EMPLOYEES ── -->
+        <div class="page-section" id="page-employees">
+            <div class="page-header">
+                <div><h1>Employees</h1><p>All registered employees</p></div>
+                <div style="display:flex;gap:10px;">
+                    <input type="text" id="emp-search" placeholder="Search..." style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;outline:none;">
+                    <select id="emp-dept-filter" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;outline:none;">
+                        <option value="">All Departments</option>
+                    </select>
+                </div>
+            </div>
+            <div class="emp-grid" id="emp-grid">
+                <div class="loader"><i class="fa-solid fa-spinner"></i></div>
+            </div>
+        </div>
+
+        <!-- ── APPROVALS ── -->
+        <div class="page-section" id="page-approvals">
+            <div class="page-header">
+                <div><h1>Approvals</h1><p>Manage employee leave requests</p></div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <select id="approval-filter" style="padding:8px 14px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;background:#fff;" onchange="renderApprovals()">
+                        <option value="all">All Requests</option>
+                        <option value="Pending" selected>Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm" onclick="loadApprovals()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+                </div>
+            </div>
+            <div id="approvals-list">
+                <div class="loader"><i class="fa-solid fa-spinner"></i></div>
+            </div>
+        </div>
+
+        <!-- ── PAYROLL ── -->
+        <div class="page-section" id="page-payroll">
+            <div class="page-header">
+                <div><h1>Payroll</h1><p>Employee salary management</p></div>
+                <button class="btn btn-primary" onclick="openPayrollModal()">
+                    <i class="fa-solid fa-plus"></i> Add Payslip
+                </button>
+            </div>
+            <div class="pay-summary" id="pay-summary"></div>
+            <div class="card">
+                <div class="card-head"><h3>Payroll Records</h3></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Employee</th><th>Department</th><th>Month</th><th>Basic</th><th>HRA</th><th>Allowances</th><th>Deductions</th><th>Net Pay</th><th>Action</th></tr>
+                        </thead>
+                        <tbody id="payroll-tbody">
+                            <tr><td colspan="9" class="loader"><i class="fa-solid fa-spinner"></i></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── REPORTS ── -->
+        <div class="page-section" id="page-reports">
+            <div class="page-header">
+                <div><h1>Reports</h1><p>Analytics and exports</p></div>
+            </div>
+            <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+                <button class="btn btn-outline" onclick="loadReport('attendance')" id="rep-btn-attendance">
+                    <i class="fa-solid fa-calendar-check"></i> Attendance
+                </button>
+                <button class="btn btn-outline" onclick="loadReport('leave')" id="rep-btn-leave">
+                    <i class="fa-solid fa-calendar-xmark"></i> Leave
+                </button>
+                <button class="btn btn-outline" onclick="loadReport('payroll')" id="rep-btn-payroll">
+                    <i class="fa-solid fa-money-bill-wave"></i> Payroll
+                </button>
+                <button class="btn btn-outline" onclick="loadReport('employees')" id="rep-btn-employees">
+                    <i class="fa-solid fa-users"></i> Employee List
+                </button>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3 id="report-title">Select a report above</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="btn btn-outline btn-sm" onclick="downloadCSV()"><i class="fa-solid fa-download"></i> Export CSV</button>
+                        <button class="btn btn-primary btn-sm" onclick="printReport()"><i class="fa-solid fa-print"></i> Print</button>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table id="report-table">
+                        <thead id="report-thead"></thead>
+                        <tbody id="report-tbody">
+                            <tr><td style="padding:30px;text-align:center;color:var(--muted);">Select a report type above</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SETTINGS ── -->
+        <div class="page-section" id="page-settings">
+            <div class="page-header"><h1>Settings</h1></div>
+            <div class="settings-grid">
+                <div class="settings-nav">
+                    <div class="settings-nav-item active" onclick="switchSettings('profile',this)"><i class="fa-solid fa-user"></i> Profile</div>
+                    <div class="settings-nav-item" onclick="switchSettings('password',this)"><i class="fa-solid fa-lock"></i> Password</div>
+                    <div class="settings-nav-item" onclick="switchSettings('notifications',this)"><i class="fa-solid fa-bell"></i> Notifications</div>
+                </div>
+                <div>
+                    <!-- Profile settings -->
+                    <div class="settings-panel active card" id="settings-profile" style="padding:24px;">
+                        <h3 style="margin-bottom:18px;">HR Profile</h3>
+                        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+                            <div class="sidebar-hr-avatar" id="settings-avatar" style="width:64px;height:64px;font-size:1.4rem;">A</div>
+                            <div>
+                                <div id="settings-name-display" style="font-weight:700;font-size:1rem;"></div>
+                                <div id="settings-email-display" style="font-size:.82rem;color:var(--muted);margin-top:2px;"></div>
+                                <div id="settings-role-display" style="font-size:.78rem;background:var(--orange-light);color:var(--orange);display:inline-block;padding:2px 8px;border-radius:10px;margin-top:4px;font-weight:600;"></div>
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="settings-name" placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" id="settings-phone" placeholder="Phone number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email (read-only)</label>
+                            <input type="text" id="settings-email" readonly style="background:#f1f5f9;">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveSettings()">
+                            <i class="fa-solid fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                    <!-- Password -->
+                    <div class="settings-panel card" id="settings-password" style="padding:24px;">
+                        <h3 style="margin-bottom:18px;">Change Password</h3>
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="pwd-current" placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="pwd-new" placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="pwd-confirm" placeholder="••••••••">
+                        </div>
+                        <button class="btn btn-primary" onclick="changePassword()">
+                            <i class="fa-solid fa-key"></i> Update Password
+                        </button>
+                    </div>
+                    <!-- Notifications -->
+                    <div class="settings-panel card" id="settings-notifications" style="padding:24px;">
+                        <h3 style="margin-bottom:18px;">Notification Preferences</h3>
+                        <div id="notif-prefs"></div>
+                        <button class="btn btn-primary" onclick="saveNotifPrefs()">
+                            <i class="fa-solid fa-save"></i> Save Preferences
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- Employee Profile Modal -->
+<div class="modal-overlay" id="emp-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="modal-emp-title">Employee Profile</h2>
+            <button class="modal-close" onclick="closeEmpModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="emp-profile-hero">
+                <div class="emp-profile-photo" id="modal-photo">?</div>
+                <div class="emp-profile-info">
+                    <h2 id="modal-name">-</h2>
+                    <p id="modal-designation">-</p>
+                    <div class="emp-profile-tags">
+                        <span class="badge badge-orange" id="modal-code">-</span>
+                        <span class="badge badge-green" id="modal-dept">-</span>
+                        <span class="badge badge-blue" id="modal-role">employee</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-tabs" id="modal-tabs">
+                <div class="modal-tab active" data-tab="personal">Personal</div>
+                <div class="modal-tab" data-tab="professional">Professional</div>
+                <div class="modal-tab" data-tab="attendance">Attendance</div>
+                <div class="modal-tab" data-tab="leaves">Leaves</div>
+                <div class="modal-tab" data-tab="payroll">Payroll</div>
+                <div class="modal-tab" data-tab="helpdesk">Helpdesk</div>
+            </div>
+            <div class="modal-tab-content">
+                <!-- Personal -->
+                <div class="tab-panel active" id="tab-personal">
+                    <div class="info-grid">
+                        <div class="info-item"><label>Full Name</label><span id="d-name">-</span></div>
+                        <div class="info-item"><label>Employee Code</label><span id="d-code">-</span></div>
+                        <div class="info-item"><label>Email</label><span id="d-email">-</span></div>
+                        <div class="info-item"><label>Phone</label><span id="d-phone">-</span></div>
+                        <div class="info-item"><label>Department</label><span id="d-dept">-</span></div>
+                        <div class="info-item"><label>Designation</label><span id="d-desig">-</span></div>
+                        <div class="info-item"><label>Experience</label><span id="d-exp">-</span></div>
+                        <div class="info-item"><label>Joined On</label><span id="d-joined">-</span></div>
+                    </div>
+                </div>
+                <!-- Professional -->
+                <div class="tab-panel" id="tab-professional">
+                    <div class="info-grid">
+                        <div class="info-item"><label>Role</label><span id="d-role">-</span></div>
+                        <div class="info-item"><label>Department</label><span id="d-dept2">-</span></div>
+                        <div class="info-item"><label>Designation</label><span id="d-desig2">-</span></div>
+                        <div class="info-item"><label>Experience</label><span id="d-exp2">-</span></div>
+                        <div class="info-item"><label>Profile Completeness</label><span id="d-complete">-</span></div>
+                        <div class="info-item"><label>Employee Code</label><span id="d-code2">-</span></div>
+                    </div>
+                    <div style="margin-top:16px;">
+                        <label style="font-size:.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;">Skills</label>
+                        <p style="margin-top:6px;font-size:.85rem;color:var(--muted);">Data not available — employee can update from profile page.</p>
+                    </div>
+                </div>
+                <!-- Attendance -->
+                <div class="tab-panel" id="tab-attendance">
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Date</th><th>Status</th><th>Check In</th><th>Check Out</th></tr></thead>
+                            <tbody id="modal-att-tbody"><tr><td colspan="4" style="text-align:center;color:var(--muted);">No records</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Leaves -->
+                <div class="tab-panel" id="tab-leaves">
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Reason</th><th>Status</th></tr></thead>
+                            <tbody id="modal-leave-tbody"><tr><td colspan="6" style="text-align:center;color:var(--muted);">No records</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Payroll -->
+                <div class="tab-panel" id="tab-payroll">
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Month</th><th>Basic</th><th>HRA</th><th>Allowances</th><th>Deductions</th><th>Net Pay</th></tr></thead>
+                            <tbody id="modal-pay-tbody"><tr><td colspan="6" style="text-align:center;color:var(--muted);">No records</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Helpdesk -->
+                <div class="tab-panel" id="tab-helpdesk">
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Subject</th><th>Category</th><th>Status</th><th>Raised On</th></tr></thead>
+                            <tbody id="modal-hd-tbody"><tr><td colspan="4" style="text-align:center;color:var(--muted);">No records</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Payslip Modal -->
+<div class="modal-overlay" id="payroll-modal">
+    <div class="modal" style="max-width:500px;">
+        <div class="modal-header">
+            <h2>Add Payslip</h2>
+            <button class="modal-close" onclick="closePayrollModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body" style="padding:24px;">
+            <div class="form-group">
+                <label>Employee</label>
+                <select id="pay-emp-select"></select>
+            </div>
+            <div class="form-group">
+                <label>Month (e.g. January 2025)</label>
+                <input type="text" id="pay-month" placeholder="January 2025">
+            </div>
+            <div class="grid-2">
+                <div class="form-group"><label>Basic Salary</label><input type="number" id="pay-basic" placeholder="35000"></div>
+                <div class="form-group"><label>HRA</label><input type="number" id="pay-hra" placeholder="14000"></div>
+            </div>
+            <div class="grid-2">
+                <div class="form-group"><label>Allowances</label><input type="number" id="pay-allow" placeholder="5000"></div>
+                <div class="form-group"><label>Deductions</label><input type="number" id="pay-deduct" placeholder="4500"></div>
+            </div>
+            <div style="background:var(--orange-light);border-radius:8px;padding:12px;margin-bottom:16px;font-size:.85rem;">
+                Net Pay = Basic + HRA + Allowances − Deductions = <strong id="net-preview">₹0</strong>
+            </div>
+            <button class="btn btn-primary" style="width:100%;" onclick="submitPayslip()">
+                <i class="fa-solid fa-save"></i> Save Payslip
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><i class="fa-solid fa-check-circle"></i><span id="toast-msg"></span></div>
+
+<script>
+const API = 'http://localhost:3000/api';
+let TOKEN = sessionStorage.getItem('hr_token') || localStorage.getItem('hr_token') || '';
+let currentApprovals = [];
+let currentReport = { type: '', data: [] };
+let allEmployees = [];
+
+// ── Auth helpers ──
+async function apiFetch(url, opts = {}) {
+    const res = await fetch(API + url, {
+        ...opts,
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN, ...(opts.headers || {}) }
+    });
+    if (res.status === 401) { logout(); return null; }
+    return res.json();
+}
+
+function logout() {
+    sessionStorage.removeItem('hr_token'); localStorage.removeItem('hr_token');
+    window.location.href = 'hr_login.html';
+}
+
+function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.className = 'toast show ' + type;
+    setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function fmt(n) { return '₹' + Number(n || 0).toLocaleString('en-IN'); }
+function fmtDate(d) { if (!d) return '—'; return new Date(d).toLocaleDateString('en-IN'); }
+function initials(name) { return (name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase(); }
+
+// ── Navigation ──
+function navigate(page) {
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.querySelector('[data-page="' + page + '"]').classList.add('active');
+    document.getElementById('page-title-label').textContent = page.charAt(0).toUpperCase() + page.slice(1);
+    if (page === 'dashboard') loadDashboard();
+    if (page === 'employees') loadEmployees();
+    if (page === 'approvals') loadApprovals();
+    if (page === 'payroll')   loadPayroll();
+    if (page === 'settings')  loadSettings();
+    // close sidebar on mobile
+    document.getElementById('sidebar').classList.remove('open');
+}
+
+document.querySelectorAll('.nav-item[data-page]').forEach(item => {
+    item.addEventListener('click', () => navigate(item.dataset.page));
+});
+
+document.getElementById('menu-toggle').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+});
+
+document.getElementById('logout-btn').addEventListener('click', logout);
+document.getElementById('refresh-btn').addEventListener('click', () => {
+    const active = document.querySelector('.nav-item.active');
+    if (active) navigate(active.dataset.page);
+});
+
+// ── LOGIN CHECK ──
+(async function init() {
+    // Try to get token from login redirect
+    const stored = sessionStorage.getItem('hr_token') || localStorage.getItem('hr_token');
+    if (!stored) {
+        // Try logging in with admin@kcet.com as fallback for demo — redirect to login
+        window.location.href = 'hr_login.html';
+        return;
+    }
+    TOKEN = stored;
+    // Load HR info into sidebar
+    const me = await apiFetch('/auth/me');
+    if (me && me.name) {
+        document.getElementById('hr-name-sidebar').textContent = me.name;
+        const av = document.getElementById('hr-avatar-sidebar');
+        if (me.photo) { av.innerHTML = '<img src="' + me.photo + '" alt="">'; }
+        else av.textContent = initials(me.name);
+    }
+    document.getElementById('dashboard-date').textContent = new Date().toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    loadDashboard();
+})();
+
+// ── DASHBOARD ──
+async function loadDashboard() {
+    // Stats
+    const stats = await apiFetch('/hr/stats');
+    if (!stats) return;
+    document.getElementById('pending-badge').textContent = stats.pending;
+    document.getElementById('stats-grid').innerHTML = `
+        <div class="stat-card"><div class="stat-icon orange"><i class="fa-solid fa-users"></i></div><div><div class="stat-num">${stats.total}</div><div class="stat-label">Total Employees</div></div></div>
+        <div class="stat-card"><div class="stat-icon green"><i class="fa-solid fa-user-check"></i></div><div><div class="stat-num">${stats.present}</div><div class="stat-label">Present Today</div></div></div>
+        <div class="stat-card"><div class="stat-icon red"><i class="fa-solid fa-user-xmark"></i></div><div><div class="stat-num">${stats.absent}</div><div class="stat-label">Absent Today</div></div></div>
+        <div class="stat-card"><div class="stat-icon blue"><i class="fa-solid fa-plane-departure"></i></div><div><div class="stat-num">${stats.onLeave}</div><div class="stat-label">On Leave</div></div></div>
+        <div class="stat-card"><div class="stat-icon yellow"><i class="fa-solid fa-clock"></i></div><div><div class="stat-num">${stats.pending}</div><div class="stat-label">Pending Approvals</div></div></div>
+        <div class="stat-card"><div class="stat-icon purple"><i class="fa-solid fa-ticket"></i></div><div><div class="stat-num">${stats.tickets}</div><div class="stat-label">Open Tickets</div></div></div>
+    `;
+    // Activities
+    const acts = await apiFetch('/hr/recent-activities');
+    const actMap = { leave:'fa-calendar-xmark text-blue', helpdesk:'fa-ticket text-yellow', attendance:'fa-clock text-green' };
+    document.getElementById('activity-list').innerHTML = acts.length ? acts.map(a => `
+        <li class="activity-item">
+            <div class="activity-icon" style="background:var(--bg);">
+                <i class="fa-solid ${actMap[a.type]?.split(' ')[0] || 'fa-circle-info'}" style="color:var(--orange);"></i>
+            </div>
+            <div>
+                <div class="activity-text"><strong>${a.name}</strong>
+                ${a.type==='leave' ? ` applied for <em>${a.leave_type}</em> leave — <span class="badge badge-${a.status==='Pending'?'yellow':a.status==='Approved'?'green':'red'}">${a.status}</span>` :
+                  a.type==='helpdesk' ? ` raised ticket: "${a.subject}"` :
+                  ` checked in at ${a.check_in||'—'}`}
+                </div>
+                <div class="activity-time">${fmtDate(a.time)}</div>
+            </div>
+        </li>`).join('') : '<li style="text-align:center;color:var(--muted);padding:20px;">No recent activities</li>';
+    // HR Stats
+    document.getElementById('hr-stats-body').innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="background:var(--bg);border-radius:8px;padding:14px;text-align:center;">
+                <div style="font-size:1.6rem;font-weight:800;color:var(--orange);">${stats.total}</div>
+                <div style="font-size:.75rem;color:var(--muted);">Total Employees</div>
+            </div>
+            <div style="background:var(--bg);border-radius:8px;padding:14px;text-align:center;">
+                <div style="font-size:1.6rem;font-weight:800;color:var(--green);">${stats.present}</div>
+                <div style="font-size:.75rem;color:var(--muted);">Present Today</div>
+            </div>
+            <div style="background:var(--bg);border-radius:8px;padding:14px;text-align:center;">
+                <div style="font-size:1.6rem;font-weight:800;color:var(--yellow);">${stats.pending}</div>
+                <div style="font-size:.75rem;color:var(--muted);">Pending Approvals</div>
+            </div>
+            <div style="background:var(--bg);border-radius:8px;padding:14px;text-align:center;">
+                <div style="font-size:1.6rem;font-weight:800;color:var(--blue);">${stats.onLeave}</div>
+                <div style="font-size:.75rem;color:var(--muted);">On Leave</div>
+            </div>
+        </div>
+        <div style="margin-top:12px;padding:10px;background:var(--orange-light);border-radius:8px;text-align:center;font-size:.82rem;color:var(--orange);font-weight:600;">
+            <i class="fa-solid fa-chart-bar"></i> &nbsp;
+            Attendance Rate: ${stats.total > 0 ? Math.round((stats.present / stats.total) * 100) : 0}%
+        </div>`;
+}
+
+// ── EMPLOYEES ──
+async function loadEmployees() {
+    document.getElementById('emp-grid').innerHTML = '<div class="loader"><i class="fa-solid fa-spinner"></i></div>';
+    const emps = await apiFetch('/hr/employees');
+    if (!emps) return;
+    allEmployees = emps;
+    // Populate department filter
+    const depts = [...new Set(emps.map(e => e.department).filter(Boolean))];
+    const df = document.getElementById('emp-dept-filter');
+    df.innerHTML = '<option value="">All Departments</option>' + depts.map(d => `<option>${d}</option>`).join('');
+    renderEmpGrid(emps);
+}
+
+function renderEmpGrid(emps) {
+    if (!emps.length) {
+        document.getElementById('emp-grid').innerHTML = '<p style="color:var(--muted);">No employees found.</p>';
+        return;
+    }
+    document.getElementById('emp-grid').innerHTML = emps.map(e => `
+        <div class="emp-card" onclick="openEmpModal(${e.id})">
+            <div class="emp-card-top">
+                <div class="emp-avatar">
+                    ${e.photo ? `<img src="${e.photo}" alt="">` : initials(e.name)}
+                </div>
+                <div>
+                    <div class="emp-name">${e.name}</div>
+                    <div class="emp-code">${e.code}</div>
+                </div>
+            </div>
+            <div class="emp-info-row"><i class="fa-solid fa-briefcase"></i>${e.designation || '—'}</div>
+            <div class="emp-info-row"><i class="fa-solid fa-building"></i>${e.department || '—'}</div>
+            <div class="emp-info-row"><i class="fa-solid fa-envelope"></i>${e.email}</div>
+            <div class="emp-info-row"><i class="fa-solid fa-phone"></i>${e.phone || '—'}</div>
+            <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+                <span class="badge badge-green">Active</span>
+                <span style="font-size:.72rem;color:var(--muted);">${e.experience || '—'}</span>
+            </div>
+        </div>`).join('');
+}
+
+// Employee search + filter
+document.getElementById('emp-search').addEventListener('input', filterEmps);
+document.getElementById('emp-dept-filter').addEventListener('change', filterEmps);
+function filterEmps() {
+    const q = document.getElementById('emp-search').value.toLowerCase();
+    const dept = document.getElementById('emp-dept-filter').value;
+    renderEmpGrid(allEmployees.filter(e =>
+        (!q || e.name.toLowerCase().includes(q) || e.email.toLowerCase().includes(q) || e.code.toLowerCase().includes(q)) &&
+        (!dept || e.department === dept)
+    ));
+}
+
+// Global search
+document.getElementById('global-search').addEventListener('input', e => {
+    const q = e.target.value.trim();
+    if (q.length > 1) { navigate('employees'); document.getElementById('emp-search').value = q; filterEmps(); }
+});
+
+// Employee Profile Modal
+async function openEmpModal(id) {
+    document.getElementById('emp-modal').classList.add('open');
+    const data = await apiFetch('/hr/employees/' + id);
+    if (!data) return;
+    // Hero
+    document.getElementById('modal-emp-title').textContent = data.name + ' — Profile';
+    document.getElementById('modal-name').textContent = data.name;
+    document.getElementById('modal-designation').textContent = (data.designation || '—') + ' • ' + (data.department || '—');
+    document.getElementById('modal-code').textContent = data.code;
+    document.getElementById('modal-dept').textContent = data.department || 'N/A';
+    document.getElementById('modal-role').textContent = data.role;
+    const ph = document.getElementById('modal-photo');
+    ph.innerHTML = data.photo ? `<img src="${data.photo}" alt="">` : initials(data.name);
+    // Personal
+    document.getElementById('d-name').textContent   = data.name;
+    document.getElementById('d-code').textContent   = data.code;
+    document.getElementById('d-email').textContent  = data.email;
+    document.getElementById('d-phone').textContent  = data.phone || '—';
+    document.getElementById('d-dept').textContent   = data.department || '—';
+    document.getElementById('d-desig').textContent  = data.designation || '—';
+    document.getElementById('d-exp').textContent    = data.experience || '—';
+    document.getElementById('d-joined').textContent = fmtDate(data.created_at);
+    // Professional
+    document.getElementById('d-role').textContent    = data.role;
+    document.getElementById('d-dept2').textContent   = data.department || '—';
+    document.getElementById('d-desig2').textContent  = data.designation || '—';
+    document.getElementById('d-exp2').textContent    = data.experience || '—';
+    document.getElementById('d-complete').textContent = (data.completeness || 0) + '%';
+    document.getElementById('d-code2').textContent   = data.code;
+    // Attendance
+    document.getElementById('modal-att-tbody').innerHTML = (data.attendance || []).length ?
+        data.attendance.map(a => `<tr><td>${a.date}</td><td><span class="badge badge-${a.status==='Present'?'green':'red'}">${a.status}</span></td><td>${a.check_in||'—'}</td><td>${a.check_out||'—'}</td></tr>`).join('') :
+        '<tr><td colspan="4" style="text-align:center;color:var(--muted);">No attendance records</td></tr>';
+    // Leaves
+    document.getElementById('modal-leave-tbody').innerHTML = (data.leaves || []).length ?
+        data.leaves.map(l => `<tr><td>${l.type}</td><td>${l.from_date}</td><td>${l.to_date}</td><td>${l.days}</td><td>${l.reason||'—'}</td><td><span class="badge badge-${l.status==='Approved'?'green':l.status==='Rejected'?'red':'yellow'}">${l.status}</span></td></tr>`).join('') :
+        '<tr><td colspan="6" style="text-align:center;color:var(--muted);">No leave records</td></tr>';
+    // Payroll
+    document.getElementById('modal-pay-tbody').innerHTML = (data.payslips || []).length ?
+        data.payslips.map(p => `<tr><td>${p.month}</td><td>${fmt(p.basic)}</td><td>${fmt(p.hra)}</td><td>${fmt(p.allowances)}</td><td>${fmt(p.deductions)}</td><td><strong>${fmt(p.net_pay)}</strong></td></tr>`).join('') :
+        '<tr><td colspan="6" style="text-align:center;color:var(--muted);">No payslip records</td></tr>';
+    // Helpdesk
+    document.getElementById('modal-hd-tbody').innerHTML = (data.helpdesk || []).length ?
+        data.helpdesk.map(h => `<tr><td>${h.subject}</td><td>${h.category||'—'}</td><td><span class="badge badge-${h.status==='Open'?'yellow':'green'}">${h.status}</span></td><td>${fmtDate(h.created_at)}</td></tr>`).join('') :
+        '<tr><td colspan="4" style="text-align:center;color:var(--muted);">No helpdesk records</td></tr>';
+    // Reset tabs
+    document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('.modal-tab[data-tab="personal"]').classList.add('active');
+    document.getElementById('tab-personal').classList.add('active');
+}
+
+function closeEmpModal() { document.getElementById('emp-modal').classList.remove('open'); }
+document.getElementById('emp-modal').addEventListener('click', e => { if (e.target === document.getElementById('emp-modal')) closeEmpModal(); });
+
+// Modal tabs
+document.querySelectorAll('.modal-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+});
+
+// ── APPROVALS ──
+async function loadApprovals() {
+    document.getElementById('approvals-list').innerHTML = '<div class="loader"><i class="fa-solid fa-spinner"></i></div>';
+    const data = await apiFetch('/hr/approvals');
+    if (!data) return;
+    currentApprovals = data;
+    document.getElementById('pending-badge').textContent = data.filter(a => a.status === 'Pending').length;
+    renderApprovals();
+}
+
+function renderApprovals() {
+    const filter = document.getElementById('approval-filter').value;
+    const list = filter === 'all' ? currentApprovals : currentApprovals.filter(a => a.status === filter);
+    if (!list.length) {
+        document.getElementById('approvals-list').innerHTML = `
+            <div style="text-align:center;color:var(--muted);padding:60px 20px;">
+                <i class="fa-solid fa-clipboard-check" style="font-size:3rem;margin-bottom:16px;opacity:.3;display:block;"></i>
+                <div style="font-size:1rem;">No ${filter === 'all' ? '' : filter.toLowerCase()+' '}requests found.</div>
+            </div>`;
+        return;
+    }
+    document.getElementById('approvals-list').innerHTML = list.map(a => `
+        <div class="approval-card" id="approval-card-${a.id}">
+            <div class="emp-avatar" style="width:46px;height:46px;flex-shrink:0;">
+                ${a.photo ? `<img src="${a.photo}" alt="">` : initials(a.name)}
+            </div>
+            <div class="approval-info" style="flex:1;">
+                <div class="approval-name">
+                    ${a.name}
+                    <span style="font-weight:400;color:var(--muted);font-size:.78rem;margin-left:6px;">${a.code || ''}</span>
+                    <span class="badge badge-${a.status==='Approved'?'green':a.status==='Rejected'?'red':'yellow'}" style="margin-left:8px;">${a.status}</span>
+                </div>
+                <div class="approval-detail" style="margin-top:5px;">
+                    <i class="fa-solid fa-calendar-days" style="color:var(--primary);margin-right:4px;"></i>
+                    <strong>${a.type}</strong> Leave &nbsp;•&nbsp;
+                    <strong>${a.from_date}</strong> → <strong>${a.to_date}</strong> &nbsp;•&nbsp;
+                    <strong>${a.days}</strong> day(s)
+                </div>
+                ${a.reason ? `
+                <div style="margin-top:8px;background:#f8f9ff;border-left:3px solid #6366f1;padding:7px 12px;border-radius:0 6px 6px 0;font-size:.82rem;color:#374151;">
+                    <i class="fa-solid fa-quote-left" style="color:#6366f1;margin-right:4px;font-size:.7rem;"></i>
+                    <strong>Employee Reason:</strong> <em>${a.reason}</em>
+                </div>` : ''}
+                ${a.hr_note ? `
+                <div style="margin-top:6px;background:${a.status==='Approved'?'#f0fdf4':a.status==='Rejected'?'#fef2f2':'#fffbeb'};border-left:3px solid ${a.status==='Approved'?'#22c55e':a.status==='Rejected'?'#ef4444':'#f59e0b'};padding:6px 12px;border-radius:0 6px 6px 0;font-size:.8rem;color:#334155;">
+                    <i class="fa-solid fa-comment-dots" style="margin-right:4px;color:${a.status==='Approved'?'#22c55e':a.status==='Rejected'?'#ef4444':'#f59e0b'};"></i>
+                    <strong>HR Note:</strong> ${a.hr_note}
+                </div>` : ''}
+                <div style="margin-top:5px;font-size:.72rem;color:var(--muted);">
+                    <i class="fa-regular fa-clock" style="margin-right:3px;"></i>Applied: ${fmtDate(a.applied_on)}
+                </div>
+            </div>
+            <div class="approval-actions" style="flex-direction:column;align-items:flex-end;gap:6px;">
+                <button class="btn btn-success btn-sm" onclick="updateApproval(${a.id},'Approved')" ${a.status==='Approved'?'disabled style="opacity:.5;"':''}>
+                    <i class="fa-solid fa-check"></i> Approve
+                </button>
+                <button class="btn btn-sm" style="background:#f59e0b;color:#fff;border:none;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:.78rem;" onclick="updateApproval(${a.id},'Pending')" ${a.status==='Pending'?'disabled style="opacity:.5;"':''}>
+                    <i class="fa-solid fa-clock"></i> Pending
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="updateApproval(${a.id},'Rejected')" ${a.status==='Rejected'?'disabled style="opacity:.5;"':''}>
+                    <i class="fa-solid fa-xmark"></i> Reject
+                </button>
+            </div>
+        </div>`).join('');
+}
+
+async function updateApproval(id, status) {
+    let hr_note = '';
+    if (status === 'Approved') {
+        const input = prompt('Add an optional approval note for the employee (or click OK for default):', 'Approved by HR');
+        if (input === null) return; // User pressed Cancel
+        hr_note = input.trim() || 'Approved by HR';
+    } else if (status === 'Rejected') {
+        const input = prompt('Add rejection reason/note for the employee (or click OK for default):', 'Request rejected by HR');
+        if (input === null) return; // User pressed Cancel
+        hr_note = input.trim() || 'Request rejected by HR';
+    } else {
+        hr_note = 'Leave under review by HR';
+    }
+
+    const res = await apiFetch('/hr/approvals/' + id, { 
+        method: 'PUT', 
+        body: JSON.stringify({ status, hr_note }) 
+    });
+
+    if (res && res.message) {
+        const toastType = status === 'Approved' ? 'success' : status === 'Rejected' ? 'error' : 'info';
+        showToast(`✅ Leave request ${status}`, toastType);
+        loadApprovals();
+        loadStats(); // refresh dashboard stats
+    }
+}
+
+// ── PAYROLL ──
+async function loadPayroll() {
+    document.getElementById('payroll-tbody').innerHTML = '<tr><td colspan="9" class="loader"><i class="fa-solid fa-spinner"></i></td></tr>';
+    const data = await apiFetch('/hr/payroll');
+    if (!data) return;
+    // Summary
+    const totalNet = data.reduce((s, r) => s + (r.net_pay || 0), 0);
+    const totalBasic = data.reduce((s, r) => s + (r.basic || 0), 0);
+    document.getElementById('pay-summary').innerHTML = `
+        <div class="pay-chip"><strong>${fmt(totalBasic)}</strong>Total Basic</div>
+        <div class="pay-chip"><strong>${fmt(totalNet)}</strong>Total Net Pay</div>
+        <div class="pay-chip"><strong>${data.filter(r=>r.payslip_id).length}</strong>Payslips</div>
+        <div class="pay-chip"><strong>${[...new Set(data.map(r=>r.id))].length}</strong>Employees</div>`;
+    document.getElementById('payroll-tbody').innerHTML = data.length ? data.map(r => `
+        <tr>
+            <td><strong>${r.name}</strong><br><span style="font-size:.72rem;color:var(--muted);">${r.code}</span></td>
+            <td>${r.department || '—'}</td>
+            <td>${r.month || '—'}</td>
+            <td>${fmt(r.basic)}</td>
+            <td>${fmt(r.hra)}</td>
+            <td>${fmt(r.allowances)}</td>
+            <td style="color:var(--red);">${fmt(r.deductions)}</td>
+            <td><strong style="color:var(--green);">${fmt(r.net_pay)}</strong></td>
+            <td><button class="btn btn-outline btn-sm" onclick="openPayrollModal(${r.id},'${r.name}')"><i class="fa-solid fa-plus"></i></button></td>
+        </tr>`).join('') :
+        '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:30px;">No payroll records yet</td></tr>';
+}
+
+async function openPayrollModal(empId, empName) {
+    document.getElementById('payroll-modal').classList.add('open');
+    const emps = allEmployees.length ? allEmployees : await apiFetch('/hr/employees');
+    document.getElementById('pay-emp-select').innerHTML = emps.map(e =>
+        `<option value="${e.id}" ${e.id == empId ? 'selected' : ''}>${e.name} (${e.code})</option>`).join('');
+    ['pay-basic','pay-hra','pay-allow','pay-deduct'].forEach(id => document.getElementById(id).addEventListener('input', updateNetPreview));
+}
+function updateNetPreview() {
+    const v = id => parseFloat(document.getElementById(id).value) || 0;
+    document.getElementById('net-preview').textContent = fmt(v('pay-basic') + v('pay-hra') + v('pay-allow') - v('pay-deduct'));
+}
+function closePayrollModal() { document.getElementById('payroll-modal').classList.remove('open'); }
+document.getElementById('payroll-modal').addEventListener('click', e => { if (e.target===document.getElementById('payroll-modal')) closePayrollModal(); });
+
+async function submitPayslip() {
+    const body = {
+        employee_id: document.getElementById('pay-emp-select').value,
+        month: document.getElementById('pay-month').value,
+        basic: document.getElementById('pay-basic').value,
+        hra: document.getElementById('pay-hra').value,
+        allowances: document.getElementById('pay-allow').value,
+        deductions: document.getElementById('pay-deduct').value
+    };
+    if (!body.month) return showToast('Enter month', 'error');
+    const res = await apiFetch('/hr/payroll', { method:'POST', body: JSON.stringify(body) });
+    if (res) { showToast('Payslip saved!'); closePayrollModal(); loadPayroll(); }
+}
+
+// ── REPORTS ──
+async function loadReport(type) {
+    document.querySelectorAll('[id^="rep-btn-"]').forEach(b => b.classList.remove('btn-primary'));
+    document.getElementById('rep-btn-' + type).classList.add('btn-primary');
+    document.getElementById('report-tbody').innerHTML = '<tr><td colspan="10" class="loader"><i class="fa-solid fa-spinner"></i></td></tr>';
+    const data = await apiFetch('/hr/reports/' + (type === 'employees' ? '' : type).replace(/\/$/, '') + (type === 'employees' ? '../hr/employees' : ''));
+
+    // special: employees uses existing employees endpoint
+    const realData = type === 'employees' ? await apiFetch('/hr/employees') : await apiFetch('/hr/reports/' + type);
+    currentReport = { type, data: realData || [] };
+
+    const configs = {
+        attendance: { title:'Attendance Report', heads:['Code','Name','Department','Present Days','Absent Days','Total Days'],
+            row: r => [r.code, r.name, r.department||'—', r.present_days||0, r.absent_days||0, r.total_days||0] },
+        leave: { title:'Leave Report', heads:['Code','Name','Department','Approved','Rejected','Pending','Total Days'],
+            row: r => [r.code, r.name, r.department||'—', r.approved||0, r.rejected||0, r.pending||0, r.total_days||0] },
+        payroll: { title:'Payroll Report', heads:['Code','Name','Department','Month','Basic','HRA','Deductions','Net Pay'],
+            row: r => [r.code, r.name, r.department||'—', r.month||'—', fmt(r.basic), fmt(r.hra), fmt(r.deductions), fmt(r.net_pay)] },
+        employees: { title:'Employee List', heads:['Code','Name','Email','Phone','Department','Designation','Experience'],
+            row: r => [r.code, r.name, r.email, r.phone||'—', r.department||'—', r.designation||'—', r.experience||'—'] }
+    };
+    const cfg = configs[type];
+    document.getElementById('report-title').textContent = cfg.title;
+    document.getElementById('report-thead').innerHTML = '<tr>' + cfg.heads.map(h => `<th>${h}</th>`).join('') + '</tr>';
+    document.getElementById('report-tbody').innerHTML = realData && realData.length ?
+        realData.map(r => '<tr>' + cfg.row(r).map(c => `<td>${c}</td>`).join('') + '</tr>').join('') :
+        '<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:30px;">No data</td></tr>';
+}
+
+function downloadCSV() {
+    if (!currentReport.data.length) return showToast('Load a report first', 'error');
+    const rows = [Object.keys(currentReport.data[0]), ...currentReport.data.map(Object.values)];
+    const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'kcet_' + currentReport.type + '_report.csv';
+    a.click();
+    showToast('CSV downloaded!');
+}
+
+function printReport() {
+    window.print();
+}
+
+// ── SETTINGS ──
+async function loadSettings() {
+    const me = await apiFetch('/hr/settings');
+    if (!me) return;
+    document.getElementById('settings-name').value  = me.name || '';
+    document.getElementById('settings-phone').value = me.phone || '';
+    document.getElementById('settings-email').value = me.email || '';
+    document.getElementById('settings-name-display').textContent  = me.name || '';
+    document.getElementById('settings-email-display').textContent = me.email || '';
+    document.getElementById('settings-role-display').textContent  = 'HR Manager';
+    const av = document.getElementById('settings-avatar');
+    if (me.photo) av.innerHTML = `<img src="${me.photo}" alt="">`;
+    else av.textContent = initials(me.name);
+    // Notifications
+    const notifPrefs = JSON.parse(localStorage.getItem('hr_notif_prefs') || '{}');
+    const notifs = [
+        { key:'leave_applied',   label:'New leave request applied' },
+        { key:'leave_approved',  label:'Leave approved/rejected' },
+        { key:'ticket_raised',   label:'New helpdesk ticket raised' },
+        { key:'checkin',         label:'Employee check-in alerts' },
+    ];
+    document.getElementById('notif-prefs').innerHTML = notifs.map(n => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:.88rem;">${n.label}</span>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                <input type="checkbox" id="notif-${n.key}" ${notifPrefs[n.key]!==false?'checked':''} style="width:16px;height:16px;accent-color:var(--orange);">
+                <span style="font-size:.8rem;color:var(--muted);">Enabled</span>
+            </label>
+        </div>`).join('') + '<div style="height:16px;"></div>';
+}
+
+function switchSettings(panel, el) {
+    document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('settings-' + panel).classList.add('active');
+}
+
+async function saveSettings() {
+    const name  = document.getElementById('settings-name').value;
+    const phone = document.getElementById('settings-phone').value;
+    const res = await apiFetch('/hr/settings', { method:'PUT', body: JSON.stringify({ name, phone }) });
+    if (res) { showToast('Settings saved!'); loadSettings(); document.getElementById('hr-name-sidebar').textContent = name; }
+}
+
+async function changePassword() {
+    const cp = document.getElementById('pwd-current').value;
+    const np = document.getElementById('pwd-new').value;
+    const cnp = document.getElementById('pwd-confirm').value;
+    if (np !== cnp) return showToast('Passwords do not match', 'error');
+    if (np.length < 6) return showToast('Password must be at least 6 characters', 'error');
+    const res = await apiFetch('/hr/settings/password', { method:'PUT', body: JSON.stringify({ current_password: cp, new_password: np }) });
+    if (res && !res.error) { showToast('Password changed successfully!'); ['pwd-current','pwd-new','pwd-confirm'].forEach(id => document.getElementById(id).value = ''); }
+    else showToast(res?.error || 'Failed', 'error');
+}
+
+function saveNotifPrefs() {
+    const prefs = {};
+    document.querySelectorAll('[id^="notif-"]').forEach(cb => { prefs[cb.id.replace('notif-','').replace(/-/g,'_')] = cb.checked; });
+    localStorage.setItem('hr_notif_prefs', JSON.stringify(prefs));
+    showToast('Notification preferences saved!');
+}
+</script>
+</body>
+</html>

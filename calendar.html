@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="profile-sync.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Calendar - KCET</title>
+    <link rel="stylesheet" href="style.css?v=105">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="logo-area">
+            <h1>KCET</h1>
+            <p></p>
+        </div>
+        <div class="search-area">
+            <div class="search-box">
+                <input type="text" placeholder="Search for Screens: Eg: Payslip">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li class="home-item"><a href="index.html?logout=1" class="home-icon"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="index.html">Profile <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="pay.html">Pay <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="leave.html">Leave <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="tax.html">Tax <i class="fa-solid fa-caret-down"></i></a></li>
+            <li class="dropdown">
+                <a href="attendance.html" class="active">Attendance & Time Tracking <i
+                        class="fa-solid fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">Attendance Process Details</a>
+                    <a href="calendar.html">Attendance Calendar</a>
+                    <a href="#">Attendance Correction Dashboard</a>
+                </div>
+            </li>
+            <li><a href="helpdesk.html">Helpdesk <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="exit.html">Exit <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="asep.html">ASeP <i class="fa-solid fa-caret-down"></i></a></li>
+            <li><a href="recognize.html">Recognize <i class="fa-solid fa-caret-down"></i></a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i> <span>Home</span> <i class="fa-solid fa-chevron-right"></i>
+        <span>Attendance & Time Tracking</span> <i class="fa-solid fa-chevron-right"></i> <span
+            class="current">Attendance Calendar</span>
+    </div>
+
+    <main class="container">
+        <!-- Left Sidebar -->
+        <aside class="profile-sidebar">
+            <div class="sidebar-header">
+                <span class="status-icon"><i class="fa-solid fa-user-check"></i></span>
+                <h3 id="sidebar-name">Vimalkumar S Profile</h3>
+            </div>
+
+            <div class="profile-photo-container">
+                <div class="photo-wrapper view-only">
+                    <img src="default-avatar.svg" alt="Profile Photo" id="profile-img">
+                </div>
+            </div>
+
+            <div class="profile-details-center">
+                <p class="employee-code" id="sidebar-code">Employee Code: 7001089</p>
+                <p class="designation" id="sidebar-designation">Team Leader</p>
+
+                <div class="contact-info">
+                    <p id="sidebar-phone"><i class="fa-solid fa-phone"></i> 8012616806</p>
+                    <p id="sidebar-email"><i class="fa-solid fa-envelope"></i> Vimalkumar.S@kcet.com</p>
+                </div>
+
+                <div class="experience">
+                    <p>Current Experience in KCET</p>
+                    <div class="exp-years" id="sidebar-exp-years">07.08 years</div>
+                </div>
+
+                <div class="completeness">
+                    <p id="sidebar-completeness-text">Profile completeness: 89%</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="sidebar-progress-bar" style="width: 89%;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn" onclick="location.href='attendance.html'">Attendance Summary</button>
+                    <button class="tab-btn active" onclick="location.href='calendar.html'">Attendance Calendar</button>
+                    <button class="tab-btn">Attendance Process Details</button>
+                    <button class="tab-btn">Attendance Correction Dashboard</button>
+                    <button class="tab-btn push-right" style="margin-left: auto;">Contact Details</button>
+                </div>
+            </div>
+
+            <div class="content-panel">
+                <div class="panel-header">
+                    <div class="header-left">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <h3>Attendance Calendar</h3>
+                    </div>
+                </div>
+
+                <div id="attendance-calendar-section" class="attendance-calendar-section">
+                    <div class="calendar-header-bar" style="border-bottom: none; margin-bottom: 10px;">
+                        <div class="header-left">
+                            <!-- Title moved to panel header -->
+                        </div>
+                        <div class="calendar-controls">
+                            <button id="prev-month-btn" class="cal-nav-btn"><i
+                                    class="fa-solid fa-chevron-left"></i></button>
+                            <select id="cal-month-select" class="cal-select"></select>
+                            <select id="cal-year-select" class="cal-select"></select>
+                            <button id="next-month-btn" class="cal-nav-btn"><i
+                                    class="fa-solid fa-chevron-right"></i></button>
+                            <button id="current-month-btn" class="today-btn">Today</button>
+                        </div>
+                    </div>
+
+                    <div id="calendar-view-area" class="calendar-view-container">
+                        <div id="month-view-elements">
+                            <div class="calendar-weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+
+                            <div id="attendance-calendar-grid" class="calendar-days-grid">
+                                <!-- Days will be rendered by JS -->
+                            </div>
+                        </div>
+
+                        <div id="year-view-elements" style="display: none;">
+                            <div id="year-calendar-grid" class="year-view-grid">
+                                <!-- 12 months will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-legend">
+                        <div class="legend-item"><span class="legend-box tag-rest"></span> Weekly Off</div>
+                        <div class="legend-item"><span class="legend-box tag-holiday"></span> Holiday</div>
+                        <div class="legend-item"><span class="legend-box tag-leave"></span> Leave</div>
+                        <div class="legend-item"><span class="legend-box tag-absent"></span> Absent</div>
+                        <div class="legend-item"><span class="legend-box tag-present"></span> Present</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js?v=25"></script>
+</body>
+
+</html>
